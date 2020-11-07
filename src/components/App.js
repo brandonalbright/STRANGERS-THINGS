@@ -17,7 +17,8 @@ function App() {
     hitAPI('GET', '/posts')
       .then((data) => {
         const { posts } = data
-        setPostList(posts)
+        setPostList(posts);
+        console.log(posts);
       })
       .catch(console.error)
   }, [isLoggedIn])
@@ -42,7 +43,9 @@ function App() {
           </Route>
           <Route path="/">
             <Header />
-            <Posts />
+            <Posts 
+            postList={postList}
+            setPostList={setPostList}/>
           </Route>
         </Switch>
       </div>
