@@ -42,6 +42,7 @@ function App() {
           </Route>
           <Route path="/">
             <Header />
+            <Posts />
           </Route>
         </Switch>
       </div>
