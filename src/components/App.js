@@ -14,11 +14,11 @@ function App() {
           <Route path="/login">
             <Login />
           </Route>
-          <Route path="posts">
-            <Posts />
-          </Route>
           <Route path="/posts">
             <Posts />
+          </Route>
+          <Route path="/message">
+            <Message />
           </Route>
           <Route path="/createNewmessage">
             <CreateNewMessage />
