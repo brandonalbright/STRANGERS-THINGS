@@ -1,0 +1,49 @@
+.login {
+	background-color: white;
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.login-container {
+	width: 300px;
+	display: flex;
+	flex-direction: column;
+	padding: 10px;
+	border: 1px solid lightgray;
+	margin-top: 40px;
+}
+.login-container > h1 {
+	font-weight: 500;
+	margin-bottom: 20px;
+}
+.login-container > form > h5 {
+	margin-bottom: 1px;
+}
+.login-container > form > input {
+	height: 30px;
+	margin-bottom: 8px;
+	background-color: white;
+	width: 98%;
+}
+
+.login-siginbutton {
+	background: rgb(195, 231, 195);
+	border-radius: 2px;
+	width: 100%;
+	height: 30px;
+	border: 1px solid;
+	margin-top: 20px;
+	margin-bottom: -10px;
+	border-color: rgb(96, 126, 96);
+}
+.login-createbutton {
+	border-radius: 2px;
+	width: 100%;
+	height: 30px;
+	border: 1px solid;
+	margin-top: 10px;
+	margin-bottom: -10px;
+	border-color: rgb(192, 230, 192);
+}
