@@ -27,8 +27,7 @@ function App() {
       <div>
         <Switch>
           <Route path="/login">
-            <Header isLoggedIn={isLoggedIn} />
-            <Login isLoggedIn={isLoggedIn} />
+            <Login setIsLoggedIn={setIsLoggedIn} />
           </Route>
           <Route path="posts">
             <Header />
