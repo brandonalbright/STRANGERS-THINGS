@@ -1,10 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './Header.css'
 import SearchIcon from '@material-ui/icons/Search'
 import { Link } from 'react-router-dom'
 import { Fab } from '@material-ui/core'
+import { getToken } from '../api/index'
 
-function Header() {
+function Header(props) {
+  const [isLoggedIn, setIsLoggedIn] = useState(!!getToken())
+
   return (
     <nav className="header">
       <Link>
@@ -20,8 +23,20 @@ function Header() {
       </div>
 
       <div className="headerNav">
-        <Link className="header-link">
-          <span className="headerOpt-line2">Sign In/Sign Up</span>
+        <Link to="./" className="header-link">
+          {isLoggedIn ? (
+            <span
+              onClick={() => {
+                clearToken()
+                setIsLoggedIn(false)
+              }}
+              className="headerOpt-line2"
+            >
+              'Log Out'
+            </span>
+          ) : (
+            <span className="headerOpt-line2">'Sign In/Sign Up'</span>
+          )}
         </Link>
       </div>
       <div className="headermessages">
