@@ -1,7 +1,11 @@
 const BASE_URL = 'https://strangers-things.herokuapp.com/api/2007-LSU-RM-WEB-PT'
 
 export const getToken = () => {
-  return localStorage.getItem('auth-token')
+  if (localStorage.getItem('auth-token')) {
+    return localStorage.getItem('auth-token')
+  } else {
+    localStorage.removeItem('auth-token')
+  }
 }
 
 export const clearToken = () => {
