@@ -5,11 +5,11 @@ import Login from './Login'
 import Posts from './Posts'
 import Message from './Message'
 import CreateNewMessage from './CreateNewMessage'
-import { getToken } from '../api/index'
-import { hitAPI } from '../api/index'
+import { getToken, clearToken } from '../api/index'
+import { hitAPI, auth } from '../api/index'
+import Home from './Home'
 
 function App() {
-  // a piece of state that represents the status of the current user
   const [isLoggedIn, setIsLoggedIn] = useState(!!getToken())
   const [postList, setPostList] = useState([])
 
@@ -38,10 +38,12 @@ function App() {
             <Message />
           </Route>
           <Route path="/createNewmessage">
+            <Header />
             <CreateNewMessage />
           </Route>
           <Route path="/">
-            <Header />
+            <Header isLoggedIn={isLoggedIn} />
+            <Home />
           </Route>
         </Switch>
       </div>

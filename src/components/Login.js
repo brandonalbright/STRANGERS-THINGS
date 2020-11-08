@@ -1,14 +1,16 @@
-import React, { useState } from 'react'
+import React, { useState, Fragment } from 'react'
 import loginUser from '../api/index'
 
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { hitApi, auth } from '../api/index'
 import './Login.css'
 import { getToken, setToken, clearToken } from '../api/index'
 import Header from './Header'
+import Home from './Home'
 
 function Login(props) {
   const { setIsLoggedIn } = props
+  const history = useHistory()
 
   console.log(props)
 
@@ -16,16 +18,23 @@ function Login(props) {
   const [password, setPassword] = useState('')
   const [errorMessage, setErrorMessage] = useState(null)
 
-  return setIsLoggedIn ? (
-    <Header />
-  ) : (
+  return (
     <div className="login">
+      <div className="logo-login">
+        <Link to="/">
+          <img
+            className="header-logo"
+            src="https://i.imgur.com/vrQimP1.png"
+            alt="logo"
+          />
+        </Link>
+      </div>
+
       <div className="login-container">
         <h1>Sign In</h1>
         <form
           onSubmit={(event) => {
             event.preventDefault()
-            console.log('FOOOOOORM')
           }}
         >
           <h5>Email</h5>
@@ -50,6 +59,7 @@ function Login(props) {
               try {
                 const result = await auth(username, password)
                 setIsLoggedIn(true)
+                history.push('/')
               } catch (error) {
                 setErrorMessage(error.message)
               }
@@ -68,6 +78,7 @@ function Login(props) {
             try {
               const result = await auth(username, password, true)
               setIsLoggedIn(true)
+              history.push('/')
             } catch (error) {
               setErrorMessage(error.message)
             }
