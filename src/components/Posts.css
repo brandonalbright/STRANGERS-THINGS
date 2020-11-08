@@ -1,16 +1,16 @@
 #post-card {
-    height: 200px;
-    width: 100%vw;
-    border: solid 1px black;
-    margin: 20px;
-    padding: 20px;
+	height: 200px;
+	width: 100%vw;
+	border: solid 1px black;
+	margin: 20px;
+	padding: 20px;
 }
 
 #post-card h1 {
-    color: black;
+	color: black;
 }
 
 .card-title {
-    display: flex;
-    justify-content: space-between;
+	display: flex;
+	justify-content: space-between;
 }

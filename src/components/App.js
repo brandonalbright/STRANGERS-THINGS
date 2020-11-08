@@ -31,7 +31,7 @@ function App() {
           </Route>
           <Route path="posts">
             <Header />
-            <Posts />
+            <Posts postList={postList} setPostList={setPostList} />
           </Route>
           <Route path="/message">
             <Header />
