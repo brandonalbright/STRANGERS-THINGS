@@ -18,6 +18,7 @@ function App() {
       .then((data) => {
         const { posts } = data
         setPostList(posts)
+        console.log(posts)
       })
       .catch(console.error)
   }, [isLoggedIn])
@@ -29,7 +30,7 @@ function App() {
           <Route path="/login">
             <Login setIsLoggedIn={setIsLoggedIn} />
           </Route>
-          <Route path="posts">
+          <Route path="/posts">
             <Header />
             <Posts postList={postList} setPostList={setPostList} />
           </Route>
