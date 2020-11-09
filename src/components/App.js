@@ -18,7 +18,6 @@ function App() {
       .then((data) => {
         const { posts } = data
         setPostList(posts)
-        console.log(posts)
       })
       .catch(console.error)
   }, [isLoggedIn])
