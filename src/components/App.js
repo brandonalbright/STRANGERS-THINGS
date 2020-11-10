@@ -4,14 +4,16 @@ import Header from './Header'
 import Login from './Login'
 import Posts from './Posts'
 import Message from './Message'
-import CreateNewMessage from './CreateNewMessage'
+import CreateNewMessage from './CreateNewPost'
 import { getToken, clearToken } from '../api/index'
 import { hitAPI, auth } from '../api/index'
 import Home from './Home'
+import CreateNewPost from './CreateNewPost'
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(!!getToken())
   const [postList, setPostList] = useState([])
+  const addNewPost = (newPost) => setPostList([newPost, ...postList])
 
   useEffect(() => {
     hitAPI('GET', '/posts')
@@ -33,6 +35,7 @@ function App() {
           <Route path="/posts">
             <Header />
             <Posts postList={postList} setPostList={setPostList} />
+            {isLoggedIn ? <CreateNewPost addNewPost={addNewPost} /> : null}
           </Route>
           <Route path="/message">
             <Header />

@@ -1,3 +1,7 @@
+#posts {
+	position: relative;
+}
+
 #post-card {
 	height: 100%;
 	width: 100%vw;
