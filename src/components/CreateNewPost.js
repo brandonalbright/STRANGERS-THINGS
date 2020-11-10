@@ -2,7 +2,8 @@ import React, { useState } from 'react'
 import './CreateNewPost.css'
 import { hitAPI } from '../api/index'
 
-function CreateNewMessage() {
+function CreateNewMessage(props) {
+  const { addNewPost } = props
   const [description, setDescription] = useState('')
   const [title, setTitle] = useState('')
   const [price, setPrice] = useState('')
