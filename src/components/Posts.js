@@ -1,4 +1,5 @@
 import zIndex from '@material-ui/core/styles/zIndex'
+import { Button } from '@material-ui/core'
 import React, { useState } from 'react'
 import './Posts.css'
 
@@ -35,7 +36,15 @@ function Posts(props) {
               <h5>Posted by: {post.author.username}</h5>
             </div>
             <div className="message">
-              <p>MESSAGE SELLER</p>
+              {post.isAuthor?
+                <Button variant="outlined" color="secondary" fullWidth >
+                Delete
+              </Button>: 
+              <Button variant="outlined" color="primary" fullWidth >
+              Message Seller
+              </Button>
+            }
+              
             </div>
           </div>
         )
