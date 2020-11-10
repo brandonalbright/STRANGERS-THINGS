@@ -1,0 +1,52 @@
+.createNewMessage {
+	
+	width: 70%;
+	position: absolute;
+	border: 2px solid rgb(156, 221, 156);
+	margin: 30px 15px 30px 15px;
+	box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0, 0, 0, 0);
+}
+.description-input {
+	display: flex;
+	padding: 10px;
+	margin: 10px;
+}
+.description-input > textarea {
+	width: 90%;
+	border: 0.5px solid rgb(156, 221, 156);
+	box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0, 0, 0, 0);
+}
+.description-input > h3 {
+	padding: 10px;
+}
+.createNewMessage-info {
+	display: flex;
+	padding: 10px;
+	margin: 10px;
+}
+
+.inputforinfo2 {
+	width: 90%;
+	border: 0.5px solid rgb(156, 221, 156);
+	box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0, 0, 0, 0);
+}
+
+.inputforinfo {
+	width: 90%;
+	border: 0.5px solid rgb(156, 221, 156);
+	margin-left: 50px;
+	box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0, 0, 0, 0);
+}
+.buttons {
+	display: flex;
+	flex: 1;
+	justify-content: space-evenly;
+	padding: 10px;
+}
+.buttons > button {
+	border: none;
+	font-size: x-large;
+	color: grey;
+	cursor: pointer;
+	border-radius: 20px;
+}
