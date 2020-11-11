@@ -44,7 +44,7 @@ function App() {
           </Route>
           <Route path="/createNewmessage">
             <Header />
-            <CreateNewPost />
+            <CreateNewPost addNewPost={addNewPost} />
           </Route>
           <Route path="/">
             <Header isLoggedIn={isLoggedIn} />

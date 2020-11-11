@@ -35,6 +35,7 @@ function Login(props) {
         <form
           onSubmit={(event) => {
             event.preventDefault()
+            
           }}
         >
           <h5>Email</h5>
@@ -59,7 +60,7 @@ function Login(props) {
               try {
                 const result = await auth(username, password)
                 setIsLoggedIn(true)
-                history.push('/')
+                history.push('/posts')
               } catch (error) {
                 setErrorMessage(error.message)
               }
@@ -78,7 +79,7 @@ function Login(props) {
             try {
               const result = await auth(username, password, true)
               setIsLoggedIn(true)
-              history.push('/')
+              history.push('/posts')
             } catch (error) {
               setErrorMessage(error.message)
             }

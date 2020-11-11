@@ -1,7 +1,8 @@
 import zIndex from '@material-ui/core/styles/zIndex'
-import React, { useState } from 'react'
+import React, { useState, Fragment } from 'react'
 import './Posts.css'
 import { Button } from '@material-ui/core'
+import { hitAPI } from '../api'
 
 function Posts(props) {
   const { postList, setPostList } = props
@@ -9,11 +10,6 @@ function Posts(props) {
   return (
     <div id="posts">
       {postList.map((post, index) => {
-        // Things to add:
-        // only active posts show
-        // message seller
-        // edit post- owner
-        // delete post- owner
         return (
           <div
             id="post-card"
@@ -37,11 +33,46 @@ function Posts(props) {
             </div>
             <div className="message">
               {post.isAuthor ? (
-                <Button variant="outlined" color="secondary" fullWidth>
-                  Delete
-                </Button>
+                <Fragment>
+                  <Button
+                    onClick={async () => {
+                      try {
+                        await hitAPI('DELETE', `/posts/${post._id}`)
+                        const data = await hitAPI('GET', '/posts')
+
+                        setPostList(data.posts)
+                      } catch (err) {
+                        console.error(err)
+                      }
+                    }}
+                    variant="outlined"
+                    color="secondary"
+                    fullWidth
+                  >
+                    Delete
+                  </Button>
+                  <Button variant="outlined" color="secondary" fullWidth>
+                    Edit
+                  </Button>
+                </Fragment>
               ) : (
-                <Button variant="outlined" color="primary" fullWidth>
+                <Button
+                  onClick={async () => {
+                    const postData = {
+                      post: {
+                        messages: messages,
+                      },
+                    }
+                    await hitAPI(
+                      'POST',
+                      `/posts/${post._id}/messages`,
+                      postData,
+                    )
+                  }}
+                  variant="outlined"
+                  color="primary"
+                  fullWidth
+                >
                   Message Seller
                 </Button>
               )}

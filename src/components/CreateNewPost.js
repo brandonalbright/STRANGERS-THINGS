@@ -8,7 +8,7 @@ function CreateNewMessage(props) {
   const [title, setTitle] = useState('')
   const [price, setPrice] = useState('')
   const [location, setLocation] = useState('')
-  const [willDeliver, setWillDeliver] = useState('')
+  const [willDeliver, setWillDeliver] = useState(false)
 
   return (
     <div className="createNewMessage">
@@ -27,14 +27,19 @@ function CreateNewMessage(props) {
 
           try {
             const result = await hitAPI('POST', '/posts', postData)
-            addNewPost(result)
+            addNewPost(result.post)
             console.log(result)
           } catch (error) {
             console.error(error)
           }
+          setDescription('')
+          setPrice('')
+          setTitle('')
+          setWillDeliver('')
+          setLocation('')
         }}
       >
-        <h1>Title</h1>
+        <h3>Title:</h3>
         <input
           value={title}
           onChange={(event) => {
@@ -42,17 +47,16 @@ function CreateNewMessage(props) {
           }}
           type="text"
         />
-        <div className="description-input">
-          <h3>Description:</h3>
-          <textarea
-            value={description}
-            onChange={(e) => {
-              setDescription(e.target.value)
-            }}
-            type="text"
-          />
-        </div>
+        <h3>Description:</h3>
+        <textarea
+          value={description}
+          onChange={(e) => {
+            setDescription(e.target.value)
+          }}
+          type="text"
+        />
         <h3>Price</h3>
+
         <input
           value={price}
           onChange={(e) => {
@@ -68,7 +72,6 @@ function CreateNewMessage(props) {
           }}
           type="text"
         />
-
         <h4>Will Deliver</h4>
         <input
           value={willDeliver}
@@ -77,7 +80,6 @@ function CreateNewMessage(props) {
           }}
           type="checkbox"
         />
-
         <button>Post It</button>
       </form>
     </div>
