@@ -1,19 +1,38 @@
 import zIndex from '@material-ui/core/styles/zIndex'
-import React, { useState } from 'react'
+import React, { useState, Fragment } from 'react'
 import './Posts.css'
 import { Button } from '@material-ui/core'
+import { hitAPI } from '../api'
+import AddCircleIcon from '@material-ui/icons/AddCircle'
+import CreateNewPost from './CreateNewPost'
+import Fab from '@material-ui/core/Fab'
+import AddIcon from '@material-ui/icons/Add'
+import CreateNewMessage from './CreateNewMessage'
 
 function Posts(props) {
   const { postList, setPostList } = props
+  const { addNewPost } = props
+  const [active, setActive] = useState(false)
+  const [message, setMessage] = useState(false)
 
   return (
     <div id="posts">
+      <Fab
+        style={{
+          position: 'sticky',
+          marginLeft: '1500px',
+
+          top: '0',
+          zIndex: '100',
+        }}
+        color="green"
+        aria-label="add"
+      >
+        <AddIcon onClick={() => setActive(true)} />
+      </Fab>
+      {active === true && <CreateNewPost addNewPost={addNewPost} />}
+
       {postList.map((post, index) => {
-        // Things to add:
-        // only active posts show
-        // message seller
-        // edit post- owner
-        // delete post- owner
         return (
           <div
             id="post-card"
@@ -35,13 +54,58 @@ function Posts(props) {
               <h5>Delivery available: {post.willDeliver ? 'YES' : 'NO'}</h5>
               <h5>Posted by: {post.author.username}</h5>
             </div>
+            {message === true && <CreateNewMessage />}
             <div className="message">
               {post.isAuthor ? (
-                <Button variant="outlined" color="secondary" fullWidth>
-                  Delete
-                </Button>
+                <Fragment>
+                  <Button
+                    onClick={async () => {
+                      try {
+                        await hitAPI('DELETE', `/posts/${post._id}`)
+                        const data = await hitAPI('GET', '/posts')
+
+                        setPostList(data.posts)
+                      } catch (err) {
+                        console.error(err)
+                      }
+                    }}
+                    variant="outlined"
+                    color="secondary"
+                    fullWidth
+                  >
+                    Delete
+                  </Button>
+                  <Button
+                    onClick={() => {
+                      console.log('post is ', post)
+                    }}
+                    variant="outlined"
+                    color="secondary"
+                    fullWidth
+                  >
+                    Edit
+                  </Button>
+                </Fragment>
               ) : (
-                <Button variant="outlined" color="primary" fullWidth>
+                <Button
+                  onClick={async () => {
+                    const objBody = {
+                      message: {
+                        content: post,
+                      },
+                    }
+                    const result = await hitAPI(
+                      'POST',
+                      `/posts/${post._id}/messages`,
+                      objBody,
+                    )
+                    console.log(result)
+                    setMessage(result)
+                  }}
+                  variant="outlined"
+                  color="primary"
+                  fullWidth
+                >
                   Message Seller
                 </Button>
               )}

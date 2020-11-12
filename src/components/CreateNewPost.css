@@ -1,52 +1,70 @@
 .createNewMessage {
-	
-	width: 70%;
-	position: absolute;
+	width: 35%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	/* position: absolute; */
 	border: 2px solid rgb(156, 221, 156);
-	margin: 30px 15px 30px 15px;
 	box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0, 0, 0, 0);
+	margin: 50px 40px 20px 450px;
+	backdrop-filter: blur(6px);
+	background-color: rgb(248, 246, 246);
 }
-.description-input {
-	display: flex;
-	padding: 10px;
-	margin: 10px;
-}
-.description-input > textarea {
-	width: 90%;
-	border: 0.5px solid rgb(156, 221, 156);
-	box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0, 0, 0, 0);
-}
-.description-input > h3 {
-	padding: 10px;
-}
-.createNewMessage-info {
-	display: flex;
-	padding: 10px;
-	margin: 10px;
+.createNewMessage > form {
+	align-self: flex-start;
+	display: grid;
+	grid-template-columns: 1fr;
+	max-width: 480px;
+	margin: 15px;
 }
 
-.inputforinfo2 {
-	width: 90%;
+.createNewMessage > form > textarea {
+	width: 400px;
+	height: 150px;
 	border: 0.5px solid rgb(156, 221, 156);
 	box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0, 0, 0, 0);
 }
 
-.inputforinfo {
-	width: 90%;
+.createNewMessage > form > input {
 	border: 0.5px solid rgb(156, 221, 156);
-	margin-left: 50px;
 	box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0, 0, 0, 0);
 }
-.buttons {
-	display: flex;
-	flex: 1;
-	justify-content: space-evenly;
-	padding: 10px;
-}
-.buttons > button {
+
+.createNewMessage > form > button {
 	border: none;
 	font-size: x-large;
 	color: grey;
 	cursor: pointer;
 	border-radius: 20px;
+	margin: 10px 10px 15px 15px;
+	border: 0.5px solid rgb(156, 221, 156);
+	box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0, 0, 0, 0);
+}
+@media (max-width: 1100px) {
+	.createNewMessage {
+		width: 50%;
+		border: 2px solid rgb(156, 221, 156);
+		box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0, 0, 0, 0);
+		align-content: center;
+		/* background-color: red; */
+	}
+	.createNewMessage > form {
+		align-self: flex-start;
+		display: grid;
+		grid-template-columns: 1fr;
+		max-width: 200px;
+		margin: 15px;
+	}
+	.createNewMessage > form > textarea {
+		width: 300px;
+		height: 200px;
+	}
+}
+@media (max-width: 600px) {
+	.createNewMessage {
+		width: 90%;
+		border: 2px solid rgb(156, 221, 156);
+		box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0, 0, 0, 0);
+		align-content: center;
+	}
 }
