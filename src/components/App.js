@@ -14,6 +14,7 @@ import CreateNewMessage from './CreateNewMessage'
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(!!getToken())
   const [postList, setPostList] = useState([])
+  const [editPost, setEditPost] = useState(null)
   function addNewPost(newPost) {
     return setPostList([newPost, ...postList])
   }
@@ -40,7 +41,7 @@ function App() {
           </Route>
           <Route path="/message">
             <Header />
-            <CreateNewMessage />
+            <CreateNewMessage postList={postList} setPostList={setPostList} />
 
             <Message />
           </Route>
@@ -52,6 +53,17 @@ function App() {
             <Header isLoggedIn={isLoggedIn} />
             <Home />
           </Route>
+          {/* have a modal here which is visible when... editPost is not null */}
+          <Modal open={editPost}>
+            <EditForm
+              post={editPost}
+              onSuccess={() => {
+                // find the editPost index in postList....
+                // copy the postList, update that entry with the new data...
+                // call setPostList with the copy
+              }}
+            />
+          </Modal>
         </Switch>
       </div>
     </Router>

@@ -25,7 +25,7 @@ function Posts(props) {
           top: '0',
           zIndex: '100',
         }}
-        color="green"
+        color="primary"
         aria-label="add"
       >
         <AddIcon onClick={() => setActive(true)} />
@@ -54,7 +54,8 @@ function Posts(props) {
               <h5>Delivery available: {post.willDeliver ? 'YES' : 'NO'}</h5>
               <h5>Posted by: {post.author.username}</h5>
             </div>
-            {message === true && <CreateNewMessage />}
+            {message === true && <CreateNewMessage postId={post._id} />}
+
             <div className="message">
               {post.isAuthor ? (
                 <Fragment>
@@ -78,6 +79,7 @@ function Posts(props) {
                   <Button
                     onClick={() => {
                       console.log('post is ', post)
+                      
                     }}
                     variant="outlined"
                     color="secondary"
@@ -88,20 +90,7 @@ function Posts(props) {
                 </Fragment>
               ) : (
                 <Button
-                  onClick={async () => {
-                    const objBody = {
-                      message: {
-                        content: post,
-                      },
-                    }
-                    const result = await hitAPI(
-                      'POST',
-                      `/posts/${post._id}/messages`,
-                      objBody,
-                    )
-                    console.log(result)
-                    setMessage(result)
-                  }}
+                  onClick={async () => setMessage(true)}
                   variant="outlined"
                   color="primary"
                   fullWidth
