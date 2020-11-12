@@ -3,12 +3,35 @@ import React, { useState, Fragment } from 'react'
 import './Posts.css'
 import { Button } from '@material-ui/core'
 import { hitAPI } from '../api'
+import AddCircleIcon from '@material-ui/icons/AddCircle'
+import CreateNewPost from './CreateNewPost'
+import Fab from '@material-ui/core/Fab'
+import AddIcon from '@material-ui/icons/Add'
+import CreateNewMessage from './CreateNewMessage'
 
 function Posts(props) {
   const { postList, setPostList } = props
+  const { addNewPost } = props
+  const [active, setActive] = useState(false)
+  const [message, setMessage] = useState(false)
 
   return (
     <div id="posts">
+      <Fab
+        style={{
+          position: 'sticky',
+          marginLeft: '1500px',
+
+          top: '0',
+          zIndex: '100',
+        }}
+        color="green"
+        aria-label="add"
+      >
+        <AddIcon onClick={() => setActive(true)} />
+      </Fab>
+      {active === true && <CreateNewPost addNewPost={addNewPost} />}
+
       {postList.map((post, index) => {
         return (
           <div
@@ -31,6 +54,7 @@ function Posts(props) {
               <h5>Delivery available: {post.willDeliver ? 'YES' : 'NO'}</h5>
               <h5>Posted by: {post.author.username}</h5>
             </div>
+            {message === true && <CreateNewMessage />}
             <div className="message">
               {post.isAuthor ? (
                 <Fragment>
@@ -51,23 +75,32 @@ function Posts(props) {
                   >
                     Delete
                   </Button>
-                  <Button variant="outlined" color="secondary" fullWidth>
+                  <Button
+                    onClick={() => {
+                      console.log('post is ', post)
+                    }}
+                    variant="outlined"
+                    color="secondary"
+                    fullWidth
+                  >
                     Edit
                   </Button>
                 </Fragment>
               ) : (
                 <Button
                   onClick={async () => {
-                    const postData = {
-                      post: {
-                        messages: messages,
+                    const objBody = {
+                      message: {
+                        content: post,
                       },
                     }
-                    await hitAPI(
+                    const result = await hitAPI(
                       'POST',
                       `/posts/${post._id}/messages`,
-                      postData,
+                      objBody,
                     )
+                    console.log(result)
+                    setMessage(result)
                   }}
                   variant="outlined"
                   color="primary"

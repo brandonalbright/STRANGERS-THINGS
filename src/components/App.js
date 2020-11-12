@@ -9,6 +9,7 @@ import { getToken, clearToken } from '../api/index'
 import { hitAPI, auth } from '../api/index'
 import Home from './Home'
 import CreateNewPost from './CreateNewPost'
+import CreateNewMessage from './CreateNewMessage'
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(!!getToken())
@@ -36,10 +37,11 @@ function App() {
           <Route path="/posts">
             <Header />
             <Posts postList={postList} setPostList={setPostList} />
-            {isLoggedIn ? <CreateNewPost addNewPost={addNewPost} /> : null}
           </Route>
           <Route path="/message">
             <Header />
+            <CreateNewMessage />
+
             <Message />
           </Route>
           <Route path="/createNewmessage">

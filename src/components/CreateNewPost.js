@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import './CreateNewPost.css'
 import { hitAPI } from '../api/index'
+import { useHistory } from 'react-router-dom'
 
 function CreateNewMessage(props) {
   const { addNewPost } = props
@@ -9,9 +10,10 @@ function CreateNewMessage(props) {
   const [price, setPrice] = useState('')
   const [location, setLocation] = useState('')
   const [willDeliver, setWillDeliver] = useState(false)
+  const history = useHistory()
 
   return (
-    <div className="createNewMessage">
+    <div id="form" className="createNewMessage">
       <form
         onSubmit={async (e) => {
           event.preventDefault()
@@ -37,6 +39,8 @@ function CreateNewMessage(props) {
           setTitle('')
           setWillDeliver('')
           setLocation('')
+          document.getElementById('form').style.display = 'none'
+          history.push('/posts')
         }}
       >
         <h3>Title:</h3>
@@ -64,7 +68,8 @@ function CreateNewMessage(props) {
           }}
           type="text"
         />
-        <h3>Location</h3>
+
+        <label for="location">Location</label>
         <input
           value={location}
           onChange={(event) => {
@@ -72,7 +77,8 @@ function CreateNewMessage(props) {
           }}
           type="text"
         />
-        <h4>Will Deliver</h4>
+
+        <label for="willDeliver">Will Deliver</label>
         <input
           value={willDeliver}
           onChange={(event) => {
@@ -80,7 +86,7 @@ function CreateNewMessage(props) {
           }}
           type="checkbox"
         />
-        <button>Post It</button>
+        <button onClick={() => {}}>Post It</button>
       </form>
     </div>
   )

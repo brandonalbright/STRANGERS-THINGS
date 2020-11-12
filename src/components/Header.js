@@ -5,6 +5,7 @@ import { Link, useHistory } from 'react-router-dom'
 import { Fab } from '@material-ui/core'
 import { getToken, clearToken, setToken } from '../api/index'
 import Login from './Login'
+import hitAPI from '../api'
 
 function Header(props) {
   const [isLoggedIn, setIsLoggedIn] = useState(!!getToken())
