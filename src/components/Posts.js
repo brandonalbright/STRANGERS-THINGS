@@ -109,8 +109,20 @@ function Posts(props) {
                   Message Seller
                 </Button>
               )}
+              
             </div>
+            {console.log(post)}
+            {post.isAuthor && (post.messages).length > 0? 
+              <div className='incoming-messages'>
+                    <h4>Messages:</h4>
+                    {
+                      (post.messages).map((message, index) =>{
+                      return <p key={index}><strong>{index + 1}.</strong> {message.content} <strong>From:</strong> {message.fromUser.username}</p>
+                      })
+                    }
+                </div>: ''}
           </div>
+          
         )
       })}
     </div>

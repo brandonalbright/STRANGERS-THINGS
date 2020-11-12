@@ -4,6 +4,7 @@ import Header from './Header'
 import Login from './Login'
 import Posts from './Posts'
 import Message from './Message'
+import MyPosts from './MyPosts'
 
 import { getToken, clearToken } from '../api/index'
 import { hitAPI, auth } from '../api/index'
@@ -17,6 +18,8 @@ function App() {
   function addNewPost(newPost) {
     return setPostList([newPost, ...postList])
   }
+
+  
 
   useEffect(() => {
     hitAPI('GET', '/posts')
@@ -41,8 +44,11 @@ function App() {
           <Route path="/message">
             <Header />
             <CreateNewMessage />
-
             <Message />
+          </Route>
+          <Route path="/myposts">
+            <Header />
+            <MyPosts postList={postList} />
           </Route>
           <Route path="/createNewmessage">
             <Header />

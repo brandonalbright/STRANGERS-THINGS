@@ -55,6 +55,9 @@ function Header(props) {
         <Link to="/message" className="header-link">
           <span>Messages</span>
         </Link>
+        <Link to="/myposts" className="header-link">
+          <span>My Posts</span>
+        </Link>
       </div>
     </nav>
   )
