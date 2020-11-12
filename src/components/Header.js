@@ -2,13 +2,9 @@ import React, { useState, Fragment, useEffect } from 'react'
 import './Header.css'
 import SearchIcon from '@material-ui/icons/Search'
 import { Link, useHistory } from 'react-router-dom'
-import { Fab } from '@material-ui/core'
-import { getToken, clearToken, setToken } from '../api/index'
-import Login from './Login'
-import hitAPI from '../api'
 
 function Header(props) {
-  const [isLoggedIn, setIsLoggedIn] = useState(!!getToken())
+  const {isLoggedIn, setIsLoggedIn, clearToken} = props
 
   return (
     <nav className="header">
@@ -30,7 +26,7 @@ function Header(props) {
             <span
               onClick={() => {
                 clearToken()
-                setIsLoggedIn()
+                setIsLoggedIn(false)
               }}
               className="headerOpt-line2"
             >
@@ -47,18 +43,24 @@ function Header(props) {
         <Link to="/posts" className="header-link">
           <span> Posts</span>
         </Link>
-        <Link to="/createNewmessage" className="header-link">
+        {isLoggedIn?
+          <Link to="/createNewmessage" className="header-link">
           <span>Create New Message</span>
-        </Link>
+          </Link>
+          : null }
       </div>
-      <div className="header-messages">
-        <Link to="/message" className="header-link">
-          <span>Messages</span>
-        </Link>
-        <Link to="/myposts" className="header-link">
-          <span>My Posts</span>
-        </Link>
-      </div>
+      {isLoggedIn?
+        <div className="header-messages">
+          <Link to="/message" className="header-link">
+            <span>Messages</span>
+          </Link>
+          <Link to="/myposts" className="header-link">
+            <span>My Posts</span>
+          </Link>
+        </div>
+        : null
+      }
+      
     </nav>
   )
 }

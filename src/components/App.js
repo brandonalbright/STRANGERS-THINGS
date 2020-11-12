@@ -19,8 +19,6 @@ function App() {
     return setPostList([newPost, ...postList])
   }
 
-  
-
   useEffect(() => {
     hitAPI('GET', '/posts')
       .then((data) => {
@@ -38,24 +36,43 @@ function App() {
             <Login setIsLoggedIn={setIsLoggedIn} />
           </Route>
           <Route path="/posts">
-            <Header />
-            <Posts postList={postList} setPostList={setPostList} />
+            <Header 
+              isLoggedIn={isLoggedIn} 
+              setIsLoggedIn={setIsLoggedIn} 
+              clearToken={clearToken}/>
+            <Posts 
+              postList={postList} 
+              setPostList={setPostList}
+              isLoggedIn={isLoggedIn} 
+              />
           </Route>
           <Route path="/message">
-            <Header />
+            <Header 
+              isLoggedIn={isLoggedIn} 
+              setIsLoggedIn={setIsLoggedIn} 
+              clearToken={clearToken}/>
             <CreateNewMessage />
             <Message />
           </Route>
           <Route path="/myposts">
-            <Header />
-            <MyPosts postList={postList} />
+            <Header 
+              isLoggedIn={isLoggedIn} 
+              setIsLoggedIn={setIsLoggedIn} 
+              clearToken={clearToken}/>
+            <MyPosts postList={postList}  isLoggedIn={isLoggedIn}/>
           </Route>
           <Route path="/createNewmessage">
-            <Header />
+            <Header 
+              isLoggedIn={isLoggedIn} 
+              setIsLoggedIn={setIsLoggedIn} 
+              clearToken={clearToken}/>
             <CreateNewPost addNewPost={addNewPost} />
           </Route>
           <Route path="/">
-            <Header isLoggedIn={isLoggedIn} />
+            <Header 
+              isLoggedIn={isLoggedIn} 
+              setIsLoggedIn={setIsLoggedIn} 
+              clearToken={clearToken} />
             <Home />
           </Route>
         </Switch>
