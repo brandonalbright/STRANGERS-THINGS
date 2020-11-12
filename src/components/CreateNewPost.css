@@ -19,10 +19,16 @@
 }
 
 .createNewMessage > form > textarea {
-	width: 400px;
+	width: 500px;
 	height: 150px;
 	border: 0.5px solid rgb(156, 221, 156);
 	box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0, 0, 0, 0);
+	outline: none;
+}
+.create-post-check {
+	width: 20px;
+	height: 20px;
+	border: none;
 }
 
 .createNewMessage > form > input {
@@ -39,6 +45,7 @@
 	margin: 10px 10px 15px 15px;
 	border: 0.5px solid rgb(156, 221, 156);
 	box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0, 0, 0, 0);
+	outline: none;
 }
 @media (max-width: 1100px) {
 	.createNewMessage {
@@ -67,4 +74,13 @@
 		box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0, 0, 0, 0);
 		align-content: center;
 	}
+}
+.createNewMessage > form > .MuiSvgIcon-root {
+	display: flex;
+	margin-left: 500px;
+}
+.createNewMessage > form > input {
+	height: 40px;
+	margin: 5px;
+	outline: none;
 }

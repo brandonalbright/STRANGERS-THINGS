@@ -8,28 +8,35 @@ import CreateNewPost from './CreateNewPost'
 import Fab from '@material-ui/core/Fab'
 import AddIcon from '@material-ui/icons/Add'
 import CreateNewMessage from './CreateNewMessage'
+import { green } from '@material-ui/core/colors'
 
 function Posts(props) {
   const { postList, setPostList } = props
+  const { isLoggedIn } = props
+
   const { addNewPost } = props
   const [active, setActive] = useState(false)
   const [message, setMessage] = useState(false)
 
   return (
     <div id="posts">
-      <Fab
-        style={{
-          position: 'sticky',
-          marginLeft: '1500px',
+      {isLoggedIn ? (
+        <Fab
+          onClick={() => setActive(true)}
+          style={{
+            position: 'sticky',
+            marginLeft: '1500px',
 
-          top: '0',
-          zIndex: '100',
-        }}
-        color="primary"
-        aria-label="add"
-      >
-        <AddIcon onClick={() => setActive(true)} />
-      </Fab>
+            top: '0',
+            zIndex: '100',
+          }}
+          aria-label="add"
+        >
+          <AddIcon onClick={() => setActive(true)} />
+        </Fab>
+      ) : (
+        ''
+      )}
       {active === true && <CreateNewPost addNewPost={addNewPost} />}
 
       {postList.map((post, index) => {
@@ -54,6 +61,7 @@ function Posts(props) {
               <h5>Delivery available: {post.willDeliver ? 'YES' : 'NO'}</h5>
               <h5>Posted by: {post.author.username}</h5>
             </div>
+
             {message === true && <CreateNewMessage postId={post._id} />}
 
             <div className="message">
@@ -79,7 +87,6 @@ function Posts(props) {
                   <Button
                     onClick={() => {
                       console.log('post is ', post)
-                      
                     }}
                     variant="outlined"
                     color="secondary"

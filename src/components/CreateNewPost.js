@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import './CreateNewPost.css'
 import { hitAPI } from '../api/index'
 import { useHistory } from 'react-router-dom'
+import CancelIcon from '@material-ui/icons/Cancel'
 
 function CreateNewMessage(props) {
   const { addNewPost } = props
@@ -43,6 +44,12 @@ function CreateNewMessage(props) {
           history.push('/posts')
         }}
       >
+        <CancelIcon
+          onClick={() => {
+            document.getElementById('form').style.display = 'none'
+            history.push('/posts')
+          }}
+        />
         <h3>Title:</h3>
         <input
           value={title}
@@ -69,7 +76,7 @@ function CreateNewMessage(props) {
           type="text"
         />
 
-        <label for="location">Location</label>
+        <h3>Location</h3>
         <input
           value={location}
           onChange={(event) => {
@@ -78,15 +85,16 @@ function CreateNewMessage(props) {
           type="text"
         />
 
-        <label for="willDeliver">Will Deliver</label>
+        <h3>Will Deliver</h3>
         <input
+         
           value={willDeliver}
           onChange={(event) => {
             setWillDeliver(!willDeliver)
           }}
-          type="checkbox"
+          type="checkbox"  className="create-post-check"
         />
-        <button onClick={() => {}}>Post It</button>
+        <button>Post It</button>
       </form>
     </div>
   )

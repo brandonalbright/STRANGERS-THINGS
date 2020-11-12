@@ -37,7 +37,11 @@ function App() {
           </Route>
           <Route path="/posts">
             <Header />
-            <Posts postList={postList} setPostList={setPostList} />
+            <Posts
+              postList={postList}
+              setPostList={setPostList}
+              isLoggedIn={isLoggedIn}
+            />
           </Route>
           <Route path="/message">
             <Header />
@@ -51,19 +55,9 @@ function App() {
           </Route>
           <Route path="/">
             <Header isLoggedIn={isLoggedIn} />
-            <Home />
+            <Posts postList={postList} setPostList={setPostList} />
           </Route>
           {/* have a modal here which is visible when... editPost is not null */}
-          <Modal open={editPost}>
-            <EditForm
-              post={editPost}
-              onSuccess={() => {
-                // find the editPost index in postList....
-                // copy the postList, update that entry with the new data...
-                // call setPostList with the copy
-              }}
-            />
-          </Modal>
         </Switch>
       </div>
     </Router>

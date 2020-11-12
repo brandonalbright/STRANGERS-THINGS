@@ -31,6 +31,7 @@ function CreateNewMessage(props) {
           onChange={(event) => setTextValue(event.target.value)}
         ></textarea>
         <button>Send</button>
+        
       </form>
     </div>
   )
