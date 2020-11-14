@@ -11,24 +11,24 @@ function CreateNewMessage(props) {
   const [location, setLocation] = useState(props.location || '')
   const [willDeliver, setWillDeliver] = useState(false)
   const history = useHistory()
-  const[isDirty, setIsDirty] = useState(false)
+  const [isDirty, setIsDirty] = useState(false)
 
   return (
     <div id="form" className="createNewMessage">
       <form
         onSubmit={async (e) => {
-          event.preventDefault();
+          event.preventDefault()
 
-          setIsDirty(true);
+          setIsDirty(true)
 
           if (title.length === 0) {
-            setIsDirty(true);
-            return;
+            setIsDirty(true)
+            return
           }
 
-          if(description.length === 0) {
-            setIsDirty(true);
-            return;
+          if (description.length === 0) {
+            setIsDirty(true)
+            return
           }
           const postData = {
             post: {
@@ -64,9 +64,9 @@ function CreateNewMessage(props) {
           }}
           type="text"
         />
-         {isDirty && title.length === 0 ? (
-        <h3 style={{ color: "red" }}>You need a title</h3>
-      ) : null}
+        {isDirty && title.length === 0 ? (
+          <h3 style={{ color: 'red' }}>You need a title</h3>
+        ) : null}
         <h3>Description:</h3>
         <textarea
           value={description}
@@ -75,9 +75,9 @@ function CreateNewMessage(props) {
           }}
           type="text"
         />
-         {isDirty && description.length === 0 ? (
-        <h3 style={{ color: "red" }}>You need a description</h3>
-      ) : null}
+        {isDirty && description.length === 0 ? (
+          <h3 style={{ color: 'red' }}>You need a description</h3>
+        ) : null}
         <h3>Price</h3>
 
         <input
@@ -88,7 +88,7 @@ function CreateNewMessage(props) {
           type="text"
         />
 
-        <label for="location">Location</label>
+        <h3>Location</h3>
         <input
           placeholder="location, leave blank for [On Request]"
           value={location}
@@ -98,7 +98,7 @@ function CreateNewMessage(props) {
           type="text"
         />
 
-        <label for="willDeliver">Will Deliver</label>
+        <h3>Will Deliver</h3>
         <input
           value={willDeliver}
           onChange={(event) => {
@@ -106,7 +106,7 @@ function CreateNewMessage(props) {
           }}
           type="checkbox"
         />
-        <button onClick={() => {}}>Post It</button>
+        <button>Post It</button>
       </form>
     </div>
   )
