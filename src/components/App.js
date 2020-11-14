@@ -13,10 +13,12 @@ import CreateNewPost from './CreateNewPost'
 import CreateNewMessage from './CreateNewMessage'
 import EditPost from './EditPost'
 
+
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(!!getToken())
   const [postList, setPostList] = useState([])
   const [editPost, setEditPost] = useState(null)
+  
 
   function addNewPost(newPost) {
     return setPostList([newPost, ...postList])
@@ -71,13 +73,6 @@ function App() {
               setIsLoggedIn={setIsLoggedIn} 
               clearToken={clearToken}/>
             <CreateNewPost addNewPost={addNewPost} />
-          </Route>
-          <Route path="/edit">
-            <EditPost />
-          </Route>
-          <Route path="/myposts">
-            <Header />
-            <MyPosts postList={postList} />
           </Route>
           <Route path="/">
             <Header 

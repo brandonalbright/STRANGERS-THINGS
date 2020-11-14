@@ -2,8 +2,6 @@ import React, { useState } from 'react'
 import Posts from './Posts'
 
 function MyPosts(props) {
-
-
     const {postList} = props;
     
 
@@ -22,4 +20,3 @@ function MyPosts(props) {
 }
 
 export default MyPosts
-
