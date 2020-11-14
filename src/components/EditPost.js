@@ -12,11 +12,7 @@ function EditPost(props) {
   const [willDeliver, setWillDeliver] = useState(props.willDeliver || false)
   const history = useHistory()
   const { postId } = props
-  const { setPostList, updatePosts } = props
-
-  const update = () =>{
-    
-  }
+  const { setPostList, updatePost } = props
 
   return (
     <div id="form" className="createNewMessage">
@@ -38,12 +34,8 @@ function EditPost(props) {
             const result = await hitAPI('PATCH', `/posts/${postId}`, postData)
 
             console.log(result)
-            
-            updatePosts(result.post)
 
-            // const data = await hitAPI('GET', '/posts')
-
-            // setPostList(data.posts)
+            updatePost(result.post)
           } catch (error) {
             console.error(error)
           }

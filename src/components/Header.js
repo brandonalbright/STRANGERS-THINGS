@@ -4,7 +4,17 @@ import SearchIcon from '@material-ui/icons/Search'
 import { Link, useHistory } from 'react-router-dom'
 
 function Header(props) {
-  const {isLoggedIn, setIsLoggedIn, clearToken} = props
+  const {
+    isLoggedIn,
+    setIsLoggedIn,
+    clearToken,
+    postList,
+    setPostList,
+    searchTerm,
+    setSearchTerm,
+    isRecent,
+    setIsRecent,
+  } = props
 
   return (
     <nav className="header">
@@ -15,8 +25,22 @@ function Header(props) {
           alt="logo"
         />
       </Link>
+
       <div className="header-search">
-        <input type="text" className="header_searchInput" />
+        <label className="header-checkbox">
+          <input
+            type="checkbox"
+            checked={isRecent}
+            onChange={() => setIsRecent(!isRecent)}
+          />
+          Recent Posts Only
+        </label>
+        <input
+          type="text"
+          className="header_searchInput"
+          onChange={(event) => setSearchTerm(event.target.value)}
+          placeholder="filter posts"
+        />
         <SearchIcon className="header-searchIcon" />
       </div>
 
@@ -43,13 +67,13 @@ function Header(props) {
         <Link to="/posts" className="header-link">
           <span> Posts</span>
         </Link>
-        {isLoggedIn?
-          <Link to="/createNewmessage" className="header-link">
-          <span>Create New Message</span>
+        {isLoggedIn ? (
+          <Link to="/createNewPost" className="header-link">
+            <span>Create New Post</span>
           </Link>
-          : null }
+        ) : null}
       </div>
-      {isLoggedIn?
+      {isLoggedIn ? (
         <div className="header-messages">
           <Link to="/message" className="header-link">
             <span>Messages</span>
@@ -58,9 +82,7 @@ function Header(props) {
             <span>My Posts</span>
           </Link>
         </div>
-        : null
-      }
-      
+      ) : null}
     </nav>
   )
 }

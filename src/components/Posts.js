@@ -8,41 +8,27 @@ import CreateNewPost from './CreateNewPost'
 import Fab from '@material-ui/core/Fab'
 import AddIcon from '@material-ui/icons/Add'
 import CreateNewMessage from './CreateNewMessage'
+import EditPost from './EditPost'
 
 function Posts(props) {
-  const { postList, setPostList, isLoggedIn } = props
-  const { addNewPost } = props
-  const [active, setActive] = useState(false)
+  const { postList, setPostList, isLoggedIn, updatePost, addNewPost } = props
+
   const [wantsToReply, setReply] = useState('')
-  const [inputVal, setInputVal] = useState('')
+
   const [isModifyPost, setIsModifyPost] = useState('')
-  const [message, setMessage] = useState('')
 
   return (
     <div id="posts">
-      <Fab
-        style={{
-          position: 'sticky',
-          marginLeft: '1500px',
-
-          top: '0',
-          zIndex: '100',
-        }}
-        color="primary"
-        aria-label="add"
-      >
-        <AddIcon onClick={() => setActive(true)} />
-      </Fab>
-      {active === true && <CreateNewPost addNewPost={addNewPost} />}
       {postList.map((post, index) => {
         return (
           <div
             id="post-card"
             key={index}
             style={{
-              border: (post.isAuthor && isLoggedIn)
-                ? '5px solid gold'
-                : '2px solid rgb(156, 221, 156',
+              border:
+                post.isAuthor && isLoggedIn
+                  ? '5px solid gold'
+                  : '2px solid rgb(156, 221, 156',
             }}
           >
             <div className="card-title">
@@ -56,7 +42,24 @@ function Posts(props) {
               <h5>Delivery available: {post.willDeliver ? 'YES' : 'NO'}</h5>
               <h5>Posted by: {post.author.username}</h5>
             </div>
-            {message === true && <CreateNewMessage postId={post._id} />}
+            {wantsToReply === post._id ? (
+              <CreateNewMessage
+                postId={post._id}
+                wantsToReply={wantsToReply}
+                setReply={setReply}
+              />
+            ) : null}
+            {isModifyPost === post._id ? (
+              <EditPost
+                title={post.title}
+                description={post.description}
+                price={post.price}
+                location={post.location}
+                willDeliver={post.willDeliver}
+                postId={post._id}
+                updatePost={updatePost}
+              />
+            ) : null}
 
             <div className="message">
               {post.isAuthor ? (
@@ -64,10 +67,12 @@ function Posts(props) {
                   <Button
                     onClick={async () => {
                       try {
-                        await hitAPI('DELETE', `/posts/${post._id}`)
-                        const data = await hitAPI('GET', '/posts')
+                        const data = await hitAPI(
+                          'DELETE',
+                          `/posts/${post._id}`,
+                        )
 
-                        setPostList(data.posts)
+                        setPostList([...postList])
                       } catch (err) {
                         console.error(err)
                       }
@@ -80,8 +85,7 @@ function Posts(props) {
                   </Button>
                   <Button
                     onClick={() => {
-                      console.log('post is ', post)
-                      
+                      setIsModifyPost(post._id)
                     }}
                     variant="outlined"
                     color="secondary"
@@ -90,46 +94,18 @@ function Posts(props) {
                     Edit
                   </Button>
                 </Fragment>
-              ) : (
-                isLoggedIn?
-                  <Button
-                      onClick={async () => {
-                        const objBody = {
-                          message: {
-                            content: post,
-                          },
-                        }
-                        const result = await hitAPI(
-                          'POST',
-                          `/posts/${post._id}/messages`,
-                          objBody,
-                        )
-                        console.log(result)
-                        setMessage(result)
-                      }}
-                      variant="outlined"
-                      color="primary"
-                      fullWidth
-                    >
-                      Message Seller
-                    </Button>
-                    : null
-                
-                  
-              )}
-              
+              ) : isLoggedIn ? (
+                <Button
+                  onClick={() => setReply(post._id)}
+                  variant="outlined"
+                  color="primary"
+                  fullWidth
+                >
+                  Message Seller
+                </Button>
+              ) : null}
             </div>
-            {post.isAuthor && (post.messages).length > 0? 
-              <div className='incoming-messages'>
-                    <h4>Messages:</h4>
-                    {
-                      (post.messages).map((message, index) =>{
-                      return <p key={index}><strong>{index + 1}.</strong> {message.content} <strong>From:</strong> {message.fromUser.username}</p>
-                      })
-                    }
-                </div>: ''}
           </div>
-          
         )
       })}
     </div>

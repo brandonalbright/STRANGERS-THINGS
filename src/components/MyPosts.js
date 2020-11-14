@@ -2,21 +2,20 @@ import React, { useState } from 'react'
 import Posts from './Posts'
 
 function MyPosts(props) {
-    const {postList} = props;
-    
+  const { postList, setPostList } = props
 
-    function filteredMyPosts() {
-        filteredMyPosts = postList.filter((post) => {
-          return post.isAuthor;
-        })
-        return filteredMyPosts
-      }
+  function filteredMyPosts() {
+    const filteredMyPosts = postList.filter((post) => {
+      return post.isAuthor
+    })
+    return filteredMyPosts
+  }
 
-    return (
-        <>
-        <Posts postList={filteredMyPosts()} />
-        </>
-    )
+  return (
+    <>
+      <Posts postList={filteredMyPosts()} setPostList={filteredMyPosts()} />
+    </>
+  )
 }
 
 export default MyPosts
