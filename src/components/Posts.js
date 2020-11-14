@@ -14,12 +14,11 @@ import { useHistory } from 'react-router-dom'
 import Message from './Message'
 
 function Posts(props) {
+
   const history = useHistory()
-  const { postList, setPostList } = props
-  const { isLoggedIn } = props
+  const { postList, setPostList, isLoggedIn, addNewPost } = props
   const [open, setOpen] = useState(false)
   const [editPost, setEditPost] = useState('')
-  const { addNewPost } = props
   const [active, setActive] = useState(false)
   const [wantsToReply, setReply] = useState('')
   const [inputVal, setInputVal] = useState('')
@@ -51,7 +50,7 @@ function Posts(props) {
             id="post-card"
             key={index}
             style={{
-              border: post.isAuthor
+              border: (post.isAuthor && isLoggedIn)
                 ? '5px solid gold'
                 : '2px solid rgb(156, 221, 156',
             }}
@@ -120,17 +119,47 @@ function Posts(props) {
                   </Button>
                 </Fragment>
               ) : (
-                <Button
-                  onClick={async () => setReply(post._id)}
-                  variant="outlined"
-                  color="primary"
-                  fullWidth
-                >
-                  Message Seller
-                </Button>
+
+                isLoggedIn?
+                  <Button
+                      onClick={async () => {
+                        const objBody = {
+                          message: {
+                            content: post,
+                          },
+                        }
+                        const result = await hitAPI(
+                          'POST',
+                          `/posts/${post._id}/messages`,
+                          objBody,
+                        )
+                        console.log(result)
+                        setMessage(result)
+                      }}
+                      variant="outlined"
+                      color="primary"
+                      fullWidth
+                    >
+                      Message Seller
+                    </Button>
+                    : null
+                
+                  
+
               )}
+              
             </div>
+            {post.isAuthor && (post.messages).length > 0? 
+              <div className='incoming-messages'>
+                    <h4>Messages:</h4>
+                    {
+                      (post.messages).map((message, index) =>{
+                      return <p key={index}><strong>{index + 1}.</strong> {message.content} <strong>From:</strong> {message.fromUser.username}</p>
+                      })
+                    }
+                </div>: ''}
           </div>
+          
         )
       })}
     </div>

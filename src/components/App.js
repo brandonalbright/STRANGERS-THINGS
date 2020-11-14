@@ -4,6 +4,7 @@ import Header from './Header'
 import Login from './Login'
 import Posts from './Posts'
 import Message from './Message'
+import MyPosts from './MyPosts'
 
 import { getToken, clearToken } from '../api/index'
 import { hitAPI, auth } from '../api/index'
@@ -16,6 +17,7 @@ import MyPosts from './MyPosts'
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(!!getToken())
   const [postList, setPostList] = useState([])
+  const [editPost, setEditPost] = useState(null)
 
   function addNewPost(newPost) {
     return setPostList([newPost, ...postList])
@@ -30,6 +32,7 @@ function App() {
       .catch(console.error)
   }, [isLoggedIn])
 
+
   return (
     <Router>
       <div>
@@ -38,25 +41,36 @@ function App() {
             <Login setIsLoggedIn={setIsLoggedIn} />
           </Route>
           <Route path="/posts">
-            <Header />
-            <Posts
-              postList={postList}
+            <Header 
+              isLoggedIn={isLoggedIn} 
+              setIsLoggedIn={setIsLoggedIn} 
+              clearToken={clearToken}/>
+            <Posts 
+              postList={postList} 
               setPostList={setPostList}
-              isLoggedIn={isLoggedIn}
-            />
+              isLoggedIn={isLoggedIn} 
+              />
           </Route>
           <Route path="/message">
-            <Header />
-            <CreateNewMessage postList={postList} setPostList={setPostList} />
-            <Message />
-
-            <Route path="/messagess">
-              <Header />
-              <Message />
-            </Route>
+            <Header 
+              isLoggedIn={isLoggedIn} 
+              setIsLoggedIn={setIsLoggedIn} 
+              clearToken={clearToken}/>
+            <Message postList={postList}/>
+          </Route>
+          <Route path="/myposts">
+            <Header 
+              isLoggedIn={isLoggedIn} 
+              setIsLoggedIn={setIsLoggedIn} 
+              clearToken={clearToken}
+              />
+            <MyPosts postList={postList}  isLoggedIn={isLoggedIn}/>
           </Route>
           <Route path="/createNewmessage">
-            <Header />
+            <Header 
+              isLoggedIn={isLoggedIn} 
+              setIsLoggedIn={setIsLoggedIn} 
+              clearToken={clearToken}/>
             <CreateNewPost addNewPost={addNewPost} />
           </Route>
           <Route path="/edit">
@@ -67,9 +81,23 @@ function App() {
             <MyPosts postList={postList} />
           </Route>
           <Route path="/">
-            <Header isLoggedIn={isLoggedIn} postList={postList} />
-            <Posts postList={postList} setPostList={setPostList} />
+            <Header 
+              isLoggedIn={isLoggedIn} 
+              setIsLoggedIn={setIsLoggedIn} 
+              clearToken={clearToken} />
+            <Home />
           </Route>
+          {/* have a modal here which is visible when... editPost is not null */}
+          {/* <Modal open={editPost}>
+            <EditForm
+              post={editPost}
+              onSuccess={() => {
+                // find the editPost index in postList....
+                // copy the postList, update that entry with the new data...
+                // call setPostList with the copy
+              }}
+            />
+          </Modal> */}
         </Switch>
       </div>
     </Router>

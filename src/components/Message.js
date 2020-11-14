@@ -1,29 +1,32 @@
-import React, { useState } from 'react'
-import './Message.css'
+import React from 'react'
 
 function Message(props) {
-  const { messageList } = props
-  console.log(messageList, 'this is props')
-  return (
-    <div className="message-container">
-      {messageList.map((mes, idx) => {
-        console.log('mes', mes)
-        return (
-          <div id="messagediv" className="message-card" key={idx}>
-            <h3 className="mesage-title"> From : {mes.fromUser.username}</h3>
-            <p>{mes.content}</p>
-            <button
-              onClick={() =>
-                (document.getElementById('messagediv').style.display = 'none')
-              }
-            >
-              Close
-            </button>
-          </div>
-        )
-      })}
-    </div>
-  )
-}
+  const {postList} = props;
+
+  function filteredMyPosts() {
+    filteredMyPosts = postList.filter((post) => {
+      return post.isAuthor;
+    })
+    return filteredMyPosts
+  }
+
+  return ((filteredMyPosts()).map((post, index) => {
+    if ((post.messages).length > 0 ) {
+      return (<div className='incoming-messages' key={index}>
+      <h4 >Messages for Post: {post.title}</h4>
+      {
+        (post.messages).map((message, index) =>{
+        return <p key={index}><strong>{index + 1}.</strong> {message.content} <strong>From:</strong> {message.fromUser.username}</p>
+        })
+      }
+      </div>)
+    } else {return null}
+
+  })
+  
+  )}
+
+
+
 
 export default Message
