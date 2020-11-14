@@ -1,22 +1,29 @@
 import React, { useState } from 'react'
 import './CreateNewPost.css'
-import { hitAPI } from '../api/index'
+import CancelIcon from '@material-ui/icons/Cancel'
 import { useHistory } from 'react-router-dom'
+import { hitAPI } from '../api'
 
-function CreateNewMessage(props) {
-  const { addNewPost } = props
+function EditPost(props) {
   const [description, setDescription] = useState(props.description || '')
   const [title, setTitle] = useState(props.title || '')
   const [price, setPrice] = useState(props.price || '')
   const [location, setLocation] = useState(props.location || '')
-  const [willDeliver, setWillDeliver] = useState(false)
+  const [willDeliver, setWillDeliver] = useState(props.willDeliver || false)
   const history = useHistory()
+  const { postId } = props
+  const { setPostList, updatePosts } = props
+
+  const update = () =>{
+    
+  }
 
   return (
     <div id="form" className="createNewMessage">
       <form
         onSubmit={async (e) => {
           event.preventDefault()
+
           const postData = {
             post: {
               title: title,
@@ -28,21 +35,34 @@ function CreateNewMessage(props) {
           }
 
           try {
-            const result = await hitAPI('POST', '/posts', postData)
-            addNewPost(result.post)
+            const result = await hitAPI('PATCH', `/posts/${postId}`, postData)
+
             console.log(result)
+            
+            updatePosts(result.post)
+
+            // const data = await hitAPI('GET', '/posts')
+
+            // setPostList(data.posts)
           } catch (error) {
             console.error(error)
           }
+
           setDescription('')
           setPrice('')
           setTitle('')
-          setWillDeliver('')
+          setWillDeliver(false)
           setLocation('')
           document.getElementById('form').style.display = 'none'
           history.push('/posts')
         }}
       >
+        <CancelIcon
+          onClick={() => {
+            document.getElementById('form').style.display = 'none'
+            history.push('/posts')
+          }}
+        />
         <h3>Title:</h3>
         <input
           value={title}
@@ -69,12 +89,8 @@ function CreateNewMessage(props) {
           type="text"
         />
 
-        <label for="location">Location</label>
+        <h3>Location</h3>
         <input
-<<<<<<< HEAD
-=======
-          placeholder="location, leave blank for [On Request]"
->>>>>>> editcomponent
           value={location}
           onChange={(event) => {
             setLocation(event.target.value)
@@ -82,18 +98,19 @@ function CreateNewMessage(props) {
           type="text"
         />
 
-        <label for="willDeliver">Will Deliver</label>
+        <h3>Will Deliver</h3>
         <input
           value={willDeliver}
           onChange={(event) => {
             setWillDeliver(!willDeliver)
           }}
           type="checkbox"
+          className="create-post-check"
         />
-        <button onClick={() => {}}>Post It</button>
+        <button>Update</button>
       </form>
     </div>
   )
 }
 
-export default CreateNewMessage
+export default EditPost
