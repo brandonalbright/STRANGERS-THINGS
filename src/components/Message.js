@@ -13,7 +13,7 @@ function Message(props) {
   return ((filteredMyPosts()).map((post, index) => {
     if ((post.messages).length > 0 ) {
       return (<div className='incoming-messages' key={index}>
-      <h4 >Messages:</h4>
+      <h4 >Messages for Post: {post.title}</h4>
       {
         (post.messages).map((message, index) =>{
         return <p key={index}><strong>{index + 1}.</strong> {message.content} <strong>From:</strong> {message.fromUser.username}</p>
