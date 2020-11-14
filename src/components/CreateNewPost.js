@@ -2,9 +2,8 @@ import React, { useState } from 'react'
 import './CreateNewPost.css'
 import { hitAPI } from '../api/index'
 import { useHistory } from 'react-router-dom'
-import CancelIcon from '@material-ui/icons/Cancel'
 
-function CreateNewPost(props) {
+function CreateNewMessage(props) {
   const { addNewPost } = props
   const [description, setDescription] = useState(props.description || '')
   const [title, setTitle] = useState(props.title || '')
@@ -44,16 +43,9 @@ function CreateNewPost(props) {
           history.push('/posts')
         }}
       >
-        <CancelIcon
-          onClick={() => {
-            document.getElementById('form').style.display = 'none'
-            history.push('/posts')
-          }}
-        />
         <h3>Title:</h3>
         <input
           value={title}
-          placeholder="Type title here"
           onChange={(event) => {
             setTitle(event.target.value)
           }}
@@ -61,7 +53,6 @@ function CreateNewPost(props) {
         />
         <h3>Description:</h3>
         <textarea
-          placeholder="Description goes here..."
           value={description}
           onChange={(e) => {
             setDescription(e.target.value)
@@ -71,7 +62,6 @@ function CreateNewPost(props) {
         <h3>Price</h3>
 
         <input
-          placeholder="Type price here.."
           value={price}
           onChange={(e) => {
             setPrice(e.target.value)
@@ -79,9 +69,8 @@ function CreateNewPost(props) {
           type="text"
         />
 
-        <h3>Location</h3>
+        <label for="location">Location</label>
         <input
-          placeholder="Location goes here..."
           value={location}
           onChange={(event) => {
             setLocation(event.target.value)
@@ -89,19 +78,18 @@ function CreateNewPost(props) {
           type="text"
         />
 
-        <h3>Will Deliver</h3>
+        <label for="willDeliver">Will Deliver</label>
         <input
           value={willDeliver}
           onChange={(event) => {
             setWillDeliver(!willDeliver)
           }}
           type="checkbox"
-          className="create-post-check"
         />
-        <button>Post It</button>
+        <button onClick={() => {}}>Post It</button>
       </form>
     </div>
   )
 }
 
-export default CreateNewPost
+export default CreateNewMessage

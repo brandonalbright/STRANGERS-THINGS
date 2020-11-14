@@ -22,7 +22,6 @@ function CreateNewMessage(props) {
             `/posts/${postId}/messages`,
             objBody,
           )
-          console.log(result)
           setTextValue('')
           document.getElementById('message-form').style.display = 'none'
         }}
