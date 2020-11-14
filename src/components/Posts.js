@@ -89,7 +89,6 @@ function Posts(props) {
                   </Button>
                 </Fragment>
               ) : (
-<<<<<<< HEAD
                 isLoggedIn?
                   <Button
                       onClick={async () => {
@@ -115,16 +114,6 @@ function Posts(props) {
                     : null
                 
                   
-=======
-                <Button
-                  onClick={async () => setMessage(true)}
-                  variant="outlined"
-                  color="primary"
-                  fullWidth
-                >
-                  Message Seller
-                </Button>
->>>>>>> 11559beb29eb203675147c72a0d7c9e3209f1f6b
               )}
               
             </div>

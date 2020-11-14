@@ -16,6 +16,8 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(!!getToken())
   const [postList, setPostList] = useState([])
   const [editPost, setEditPost] = useState(null)
+  
+
   function addNewPost(newPost) {
     return setPostList([newPost, ...postList])
   }
@@ -28,6 +30,7 @@ function App() {
       })
       .catch(console.error)
   }, [isLoggedIn])
+
 
   return (
     <Router>
@@ -48,24 +51,18 @@ function App() {
               />
           </Route>
           <Route path="/message">
-<<<<<<< HEAD
             <Header 
               isLoggedIn={isLoggedIn} 
               setIsLoggedIn={setIsLoggedIn} 
               clearToken={clearToken}/>
-            <CreateNewMessage />
-=======
-            <Header />
-            <CreateNewMessage postList={postList} setPostList={setPostList} />
-
->>>>>>> 11559beb29eb203675147c72a0d7c9e3209f1f6b
-            <Message />
+            <Message postList={postList}/>
           </Route>
           <Route path="/myposts">
             <Header 
               isLoggedIn={isLoggedIn} 
               setIsLoggedIn={setIsLoggedIn} 
-              clearToken={clearToken}/>
+              clearToken={clearToken}
+              />
             <MyPosts postList={postList}  isLoggedIn={isLoggedIn}/>
           </Route>
           <Route path="/createNewmessage">
@@ -83,7 +80,7 @@ function App() {
             <Home />
           </Route>
           {/* have a modal here which is visible when... editPost is not null */}
-          <Modal open={editPost}>
+          {/* <Modal open={editPost}>
             <EditForm
               post={editPost}
               onSuccess={() => {
@@ -92,7 +89,7 @@ function App() {
                 // call setPostList with the copy
               }}
             />
-          </Modal>
+          </Modal> */}
         </Switch>
       </div>
     </Router>
