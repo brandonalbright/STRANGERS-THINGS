@@ -23,6 +23,7 @@ function Posts(props) {
   const [wantsToReply, setReply] = useState('')
   const [inputVal, setInputVal] = useState('')
   const [isModifyPost, setIsModifyPost] = useState('')
+  const [message, setMessage] = useState('')
 
   return (
     <div id="posts">
