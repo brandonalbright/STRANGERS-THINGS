@@ -1,23 +1,25 @@
 import React, { useState } from 'react'
 import './CreateNewPost.css'
-import { hitAPI } from '../api/index'
-import { useHistory } from 'react-router-dom'
 import CancelIcon from '@material-ui/icons/Cancel'
+import { useHistory } from 'react-router-dom'
+import { hitAPI } from '../api'
 
-function CreateNewPost(props) {
-  const { addNewPost } = props
+function EditPost(props) {
   const [description, setDescription] = useState(props.description || '')
   const [title, setTitle] = useState(props.title || '')
   const [price, setPrice] = useState(props.price || '')
   const [location, setLocation] = useState(props.location || '')
   const [willDeliver, setWillDeliver] = useState(false)
   const history = useHistory()
+  const { postId } = props
+  const { setPostList } = props
 
   return (
     <div id="form" className="createNewMessage">
       <form
         onSubmit={async (e) => {
           event.preventDefault()
+
           const postData = {
             post: {
               title: title,
@@ -29,12 +31,16 @@ function CreateNewPost(props) {
           }
 
           try {
-            const result = await hitAPI('POST', '/posts', postData)
-            addNewPost(result.post)
+            const result = await hitAPI('PATCH', `/posts/${postId}`, postData)
+
             console.log(result)
+            const data = await hitAPI('GET', '/posts')
+
+            setPostList(data.posts)
           } catch (error) {
             console.error(error)
           }
+
           setDescription('')
           setPrice('')
           setTitle('')
@@ -53,7 +59,6 @@ function CreateNewPost(props) {
         <h3>Title:</h3>
         <input
           value={title}
-          placeholder="Type title here"
           onChange={(event) => {
             setTitle(event.target.value)
           }}
@@ -61,7 +66,6 @@ function CreateNewPost(props) {
         />
         <h3>Description:</h3>
         <textarea
-          placeholder="Description goes here..."
           value={description}
           onChange={(e) => {
             setDescription(e.target.value)
@@ -71,7 +75,6 @@ function CreateNewPost(props) {
         <h3>Price</h3>
 
         <input
-          placeholder="Type price here.."
           value={price}
           onChange={(e) => {
             setPrice(e.target.value)
@@ -81,7 +84,6 @@ function CreateNewPost(props) {
 
         <h3>Location</h3>
         <input
-          placeholder="Location goes here..."
           value={location}
           onChange={(event) => {
             setLocation(event.target.value)
@@ -98,10 +100,10 @@ function CreateNewPost(props) {
           type="checkbox"
           className="create-post-check"
         />
-        <button>Post It</button>
+        <button>Update</button>
       </form>
     </div>
   )
 }
 
-export default CreateNewPost
+export default EditPost

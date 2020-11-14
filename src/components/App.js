@@ -10,11 +10,13 @@ import { hitAPI, auth } from '../api/index'
 import Home from './Home'
 import CreateNewPost from './CreateNewPost'
 import CreateNewMessage from './CreateNewMessage'
+import EditPost from './EditPost'
+import MyPosts from './MyPosts'
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(!!getToken())
   const [postList, setPostList] = useState([])
-  const [editPost, setEditPost] = useState(null)
+
   function addNewPost(newPost) {
     return setPostList([newPost, ...postList])
   }
@@ -46,18 +48,28 @@ function App() {
           <Route path="/message">
             <Header />
             <CreateNewMessage postList={postList} setPostList={setPostList} />
-
             <Message />
+
+            <Route path="/messagess">
+              <Header />
+              <Message />
+            </Route>
           </Route>
           <Route path="/createNewmessage">
             <Header />
             <CreateNewPost addNewPost={addNewPost} />
           </Route>
+          <Route path="/edit">
+            <EditPost />
+          </Route>
+          <Route path="/myposts">
+            <Header />
+            <MyPosts postList={postList} />
+          </Route>
           <Route path="/">
-            <Header isLoggedIn={isLoggedIn} />
+            <Header isLoggedIn={isLoggedIn} postList={postList} />
             <Posts postList={postList} setPostList={setPostList} />
           </Route>
-          {/* have a modal here which is visible when... editPost is not null */}
         </Switch>
       </div>
     </Router>

@@ -8,15 +8,22 @@ import CreateNewPost from './CreateNewPost'
 import Fab from '@material-ui/core/Fab'
 import AddIcon from '@material-ui/icons/Add'
 import CreateNewMessage from './CreateNewMessage'
-import { green } from '@material-ui/core/colors'
+import { Modal } from '@material-ui/core'
+import EditPost from './EditPost'
+import { useHistory } from 'react-router-dom'
+import Message from './Message'
 
 function Posts(props) {
+  const history = useHistory()
   const { postList, setPostList } = props
   const { isLoggedIn } = props
-
+  const [open, setOpen] = useState(false)
+  const [editPost, setEditPost] = useState('')
   const { addNewPost } = props
   const [active, setActive] = useState(false)
-  const [message, setMessage] = useState(false)
+  const [wantsToReply, setReply] = useState('')
+  const [inputVal, setInputVal] = useState('')
+  const [isModifyPost, setIsModifyPost] = useState('')
 
   return (
     <div id="posts">
@@ -24,8 +31,8 @@ function Posts(props) {
         <Fab
           onClick={() => setActive(true)}
           style={{
-            position: 'sticky',
-            marginLeft: '1500px',
+            position: 'absolute',
+            marginLeft: '1600px',
 
             top: '0',
             zIndex: '100',
@@ -38,7 +45,6 @@ function Posts(props) {
         ''
       )}
       {active === true && <CreateNewPost addNewPost={addNewPost} />}
-
       {postList.map((post, index) => {
         return (
           <div
@@ -62,7 +68,27 @@ function Posts(props) {
               <h5>Posted by: {post.author.username}</h5>
             </div>
 
-            {message === true && <CreateNewMessage postId={post._id} />}
+            {wantsToReply === post._id ? (
+              <CreateNewMessage
+                postId={post._id}
+                wantsToReply={wantsToReply}
+                setReply={setReply}
+              />
+            ) : null}
+
+            {isModifyPost === post._id ? (
+              <EditPost
+                title={post.title}
+                description={post.description}
+                price={post.price}
+                location={post.location}
+                willDeliver={post.willDeliver}
+                postId={post._id}
+                setPostList={setPostList}
+              />
+            ) : (
+              ''
+            )}
 
             <div className="message">
               {post.isAuthor ? (
@@ -85,9 +111,7 @@ function Posts(props) {
                     Delete
                   </Button>
                   <Button
-                    onClick={() => {
-                      console.log('post is ', post)
-                    }}
+                    onClick={() => setIsModifyPost(post._id)}
                     variant="outlined"
                     color="secondary"
                     fullWidth
@@ -97,7 +121,7 @@ function Posts(props) {
                 </Fragment>
               ) : (
                 <Button
-                  onClick={async () => setMessage(true)}
+                  onClick={async () => setReply(post._id)}
                   variant="outlined"
                   color="primary"
                   fullWidth

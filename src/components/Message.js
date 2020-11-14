@@ -1,18 +1,24 @@
 import React, { useState } from 'react'
+import './Message.css'
 
-function Message() {
-  const [message, setMessage] = useState([])
+function Message(props) {
+  const { messageList } = props
+  console.log(messageList, 'this is props')
   return (
-    <div className="message">
-      <h1>message</h1>
-      {message.map((mes) => {
+    <div className="message-container">
+      {messageList.map((mes, idx) => {
+        console.log('mes', mes)
         return (
-          <div className="message-card">
-            <h1>Title</h1>
-            <p>
-              message bhbdschjdsb bcjdbscjn jsbdjs bjhsbdcjs hjsbdjhs hjsdbcjhs
-              hsbdcjh
-            </p>
+          <div id="messagediv" className="message-card" key={idx}>
+            <h3 className="mesage-title"> From : {mes.fromUser.username}</h3>
+            <p>{mes.content}</p>
+            <button
+              onClick={() =>
+                (document.getElementById('messagediv').style.display = 'none')
+              }
+            >
+              Close
+            </button>
           </div>
         )
       })}

@@ -22,6 +22,7 @@ function CreateNewMessage(props) {
             `/posts/${postId}/messages`,
             objBody,
           )
+          console.log(result)
           setTextValue('')
           document.getElementById('message-form').style.display = 'none'
         }}
@@ -31,7 +32,6 @@ function CreateNewMessage(props) {
           onChange={(event) => setTextValue(event.target.value)}
         ></textarea>
         <button>Send</button>
-        
       </form>
     </div>
   )

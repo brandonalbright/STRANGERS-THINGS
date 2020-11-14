@@ -9,6 +9,7 @@ import hitAPI from '../api'
 
 function Header(props) {
   const [isLoggedIn, setIsLoggedIn] = useState(!!getToken())
+  const { postList } = props
 
   return (
     <nav className="header">
@@ -34,7 +35,7 @@ function Header(props) {
               }}
               className="headerOpt-line2"
             >
-              Logout
+              {`Hello  Logout`}
             </span>
           </Link>
         ) : (
@@ -47,15 +48,23 @@ function Header(props) {
         <Link to="/posts" className="header-link">
           <span> Posts</span>
         </Link>
-        <Link to="/createNewmessage" className="header-link">
-          <span>Create New Message</span>
-        </Link>
+
+        {isLoggedIn ? (
+          <Link to="/createNewmessage" className="header-link">
+            <span>Create New Post</span>
+          </Link>
+        ) : (
+          ''
+        )}
       </div>
-      <div className="header-messages">
-        <Link to="/message" className="header-link">
-          <span>Messages</span>
-        </Link>
-      </div>
+
+      {isLoggedIn ? (
+        <div className="header-messages">
+          <Link to="/myposts" className="header-link">
+            <span>My Posts</span>
+          </Link>
+        </div>
+      ) : null}
     </nav>
   )
 }
