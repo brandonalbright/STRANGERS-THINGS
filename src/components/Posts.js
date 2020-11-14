@@ -31,7 +31,6 @@ function Posts(props) {
         <AddIcon onClick={() => setActive(true)} />
       </Fab>
       {active === true && <CreateNewPost addNewPost={addNewPost} />}
-
       {postList.map((post, index) => {
         return (
           <div
@@ -45,7 +44,7 @@ function Posts(props) {
           >
             <div className="card-title">
               <h3>
-                {post.title} ({post.location})
+                {post.title} ({post.location}) [{post.createdAt}]
               </h3>
               <h3>Posted Price: {post.price}</h3>
             </div>
@@ -89,7 +88,6 @@ function Posts(props) {
                   </Button>
                 </Fragment>
               ) : (
-<<<<<<< HEAD
                 isLoggedIn?
                   <Button
                       onClick={async () => {
@@ -115,16 +113,6 @@ function Posts(props) {
                     : null
                 
                   
-=======
-                <Button
-                  onClick={async () => setMessage(true)}
-                  variant="outlined"
-                  color="primary"
-                  fullWidth
-                >
-                  Message Seller
-                </Button>
->>>>>>> 11559beb29eb203675147c72a0d7c9e3209f1f6b
               )}
               
             </div>

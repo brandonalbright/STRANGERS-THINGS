@@ -11,12 +11,25 @@ function CreateNewMessage(props) {
   const [location, setLocation] = useState(props.location || '')
   const [willDeliver, setWillDeliver] = useState(false)
   const history = useHistory()
+  const[isDirty, setIsDirty] = useState(false)
 
   return (
     <div id="form" className="createNewMessage">
       <form
         onSubmit={async (e) => {
-          event.preventDefault()
+          event.preventDefault();
+
+          setIsDirty(true);
+
+          if (title.length === 0) {
+            setIsDirty(true);
+            return;
+          }
+
+          if(description.length === 0) {
+            setIsDirty(true);
+            return;
+          }
           const postData = {
             post: {
               title: title,
@@ -51,6 +64,9 @@ function CreateNewMessage(props) {
           }}
           type="text"
         />
+         {isDirty && title.length === 0 ? (
+        <h3 style={{ color: "red" }}>You need a title</h3>
+      ) : null}
         <h3>Description:</h3>
         <textarea
           value={description}
@@ -59,6 +75,9 @@ function CreateNewMessage(props) {
           }}
           type="text"
         />
+         {isDirty && description.length === 0 ? (
+        <h3 style={{ color: "red" }}>You need a description</h3>
+      ) : null}
         <h3>Price</h3>
 
         <input

@@ -5,20 +5,45 @@ import Login from './Login'
 import Posts from './Posts'
 import Message from './Message'
 import MyPosts from './MyPosts'
-
+import './Header.css'
 import { getToken, clearToken } from '../api/index'
 import { hitAPI, auth } from '../api/index'
 import Home from './Home'
 import CreateNewPost from './CreateNewPost'
 import CreateNewMessage from './CreateNewMessage'
+import { SignalWifi1BarLock } from '@material-ui/icons'
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(!!getToken())
   const [postList, setPostList] = useState([])
   const [editPost, setEditPost] = useState(null)
+  const [searchTerm, setSearchTerm] = useState("")
+  const [isRecent, setIsRecent] = useState(false)
+
   function addNewPost(newPost) {
-    return setPostList([newPost, ...postList])
+    return setPostList([...postList, newPost])
   }
+
+  function filteredPosts() {
+    const postsFilteredBySearchTerm = postList.filter((post) => {
+      return post.title.toLowerCase().includes(searchTerm.toLowerCase());
+    });
+
+    const recentPosts = postsFilteredBySearchTerm.filter((post) => {
+      if (!isRecent) {
+        return true;
+      }
+
+      const postTime = Date.parse(post.createdAt); 
+      const nowTime = Date.now();
+      const THREE_HOURS = 1000 * 60 * 60 * 3;
+
+      return postTime + THREE_HOURS >= nowTime; 
+    });
+
+    return recentPosts.reverse();
+  }
+   
 
   useEffect(() => {
     hitAPI('GET', '/posts')
@@ -41,24 +66,31 @@ function App() {
               isLoggedIn={isLoggedIn} 
               setIsLoggedIn={setIsLoggedIn} 
               clearToken={clearToken}/>
+              <div className="filter-options" >
+                <input
+                  type="text"
+                  value={searchTerm}
+                  onChange={(event) => setSearchTerm(event.target.value)}
+                  placeholder="filter posts" />
+                <label>
+                  <input type="checkbox" checked={isRecent} onChange={() => setIsRecent (!isRecent)} />
+                  Recent Posts Only
+                </label>
+              </div>
             <Posts 
-              postList={postList} 
+              postList={filteredPosts()} 
               setPostList={setPostList}
               isLoggedIn={isLoggedIn} 
               />
           </Route>
           <Route path="/message">
-<<<<<<< HEAD
             <Header 
               isLoggedIn={isLoggedIn} 
               setIsLoggedIn={setIsLoggedIn} 
               clearToken={clearToken}/>
             <CreateNewMessage />
-=======
             <Header />
             <CreateNewMessage postList={postList} setPostList={setPostList} />
-
->>>>>>> 11559beb29eb203675147c72a0d7c9e3209f1f6b
             <Message />
           </Route>
           <Route path="/myposts">
@@ -66,7 +98,18 @@ function App() {
               isLoggedIn={isLoggedIn} 
               setIsLoggedIn={setIsLoggedIn} 
               clearToken={clearToken}/>
-            <MyPosts postList={postList}  isLoggedIn={isLoggedIn}/>
+               <div className="filter-options" >
+                <input
+                  type="text"
+                  value={searchTerm}
+                  onChange={(event) => setSearchTerm(event.target.value)}
+                  placeholder="filter my posts" />
+                <label>
+                  <input type="checkbox" checked={isRecent} onChange={() => setIsRecent (!isRecent)} />
+                  Recent Posts Only
+                </label>
+              </div>
+            <MyPosts postList={filteredPosts()}  isLoggedIn={isLoggedIn}/>
           </Route>
           <Route path="/createNewmessage">
             <Header 
@@ -82,21 +125,9 @@ function App() {
               clearToken={clearToken} />
             <Home />
           </Route>
-          {/* have a modal here which is visible when... editPost is not null */}
-          <Modal open={editPost}>
-            <EditForm
-              post={editPost}
-              onSuccess={() => {
-                // find the editPost index in postList....
-                // copy the postList, update that entry with the new data...
-                // call setPostList with the copy
-              }}
-            />
-          </Modal>
         </Switch>
       </div>
     </Router>
   )
 }
-
 export default App
