@@ -13,7 +13,10 @@ function Posts(props) {
   const { postList, setPostList, isLoggedIn } = props
   const { addNewPost } = props
   const [active, setActive] = useState(false)
-  const [message, setMessage] = useState(false)
+  const [wantsToReply, setReply] = useState('')
+  const [inputVal, setInputVal] = useState('')
+  const [isModifyPost, setIsModifyPost] = useState('')
+  const [message, setMessage] = useState('')
 
   return (
     <div id="posts">
