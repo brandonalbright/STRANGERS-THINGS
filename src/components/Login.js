@@ -6,7 +6,6 @@ import { hitApi, auth } from '../api/index'
 import './Login.css'
 import { getToken, setToken, clearToken } from '../api/index'
 import Header from './Header'
-import Home from './Home'
 
 function Login(props) {
   const { setIsLoggedIn } = props

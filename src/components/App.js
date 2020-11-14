@@ -8,10 +8,8 @@ import MyPosts from './MyPosts'
 import './Header.css'
 import { getToken, clearToken } from '../api/index'
 import { hitAPI, auth } from '../api/index'
-import Home from './Home'
 import CreateNewPost from './CreateNewPost'
 import CreateNewMessage from './CreateNewMessage'
-import EditPost from './EditPost'
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(!!getToken())
@@ -154,7 +152,12 @@ function App() {
               setIsLoggedIn={setIsLoggedIn}
               clearToken={clearToken}
             />
-            <Home />
+            <Posts
+              postList={filteredPosts()}
+              setPostList={setPostList}
+              isLoggedIn={isLoggedIn}
+              updatePost={updatePost}
+            />
           </Route>
         </Switch>
       </div>

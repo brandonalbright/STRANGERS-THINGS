@@ -8,7 +8,7 @@ function CreateNewMessage(props) {
   const [textValue, setTextValue] = useState('')
 
   return (
-    <div  className="new-message">
+    <div  id="message-form" className="new-message">
       <form
         onSubmit={async (event, post) => {
           event.preventDefault()
