@@ -81,7 +81,7 @@ function CreateNewPost(props) {
 
         <h3>Location</h3>
         <input
-          placeholder="Location goes here..."
+          placeholder="location, leave blank for [On Request]"
           value={location}
           onChange={(event) => {
             setLocation(event.target.value)

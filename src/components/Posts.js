@@ -24,6 +24,7 @@ function Posts(props) {
   const [wantsToReply, setReply] = useState('')
   const [inputVal, setInputVal] = useState('')
   const [isModifyPost, setIsModifyPost] = useState('')
+  const { id } = postList.post._id
 
   return (
     <div id="posts">

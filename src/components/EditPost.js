@@ -9,10 +9,14 @@ function EditPost(props) {
   const [title, setTitle] = useState(props.title || '')
   const [price, setPrice] = useState(props.price || '')
   const [location, setLocation] = useState(props.location || '')
-  const [willDeliver, setWillDeliver] = useState(false)
+  const [willDeliver, setWillDeliver] = useState(props.willDeliver || false)
   const history = useHistory()
   const { postId } = props
-  const { setPostList } = props
+  const { setPostList, updatePosts } = props
+
+  const update = () =>{
+    
+  }
 
   return (
     <div id="form" className="createNewMessage">
@@ -34,9 +38,12 @@ function EditPost(props) {
             const result = await hitAPI('PATCH', `/posts/${postId}`, postData)
 
             console.log(result)
-            const data = await hitAPI('GET', '/posts')
+            
+            updatePosts(result.post)
 
-            setPostList(data.posts)
+            // const data = await hitAPI('GET', '/posts')
+
+            // setPostList(data.posts)
           } catch (error) {
             console.error(error)
           }
@@ -44,7 +51,7 @@ function EditPost(props) {
           setDescription('')
           setPrice('')
           setTitle('')
-          setWillDeliver('')
+          setWillDeliver(false)
           setLocation('')
           document.getElementById('form').style.display = 'none'
           history.push('/posts')
