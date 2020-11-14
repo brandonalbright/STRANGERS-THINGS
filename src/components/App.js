@@ -11,6 +11,8 @@ import { hitAPI, auth } from '../api/index'
 import Home from './Home'
 import CreateNewPost from './CreateNewPost'
 import CreateNewMessage from './CreateNewMessage'
+import EditPost from './EditPost'
+
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(!!getToken())
