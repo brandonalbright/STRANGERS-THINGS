@@ -4,7 +4,9 @@ import SearchIcon from '@material-ui/icons/Search'
 import { Link, useHistory } from 'react-router-dom'
 
 function Header(props) {
+
   const {isLoggedIn, setIsLoggedIn, clearToken} = props
+
 
   return (
     <nav className="header">
@@ -30,7 +32,7 @@ function Header(props) {
               }}
               className="headerOpt-line2"
             >
-              Logout
+              {`Hello  Logout`}
             </span>
           </Link>
         ) : (
@@ -43,6 +45,7 @@ function Header(props) {
         <Link to="/posts" className="header-link">
           <span> Posts</span>
         </Link>
+
         {isLoggedIn?
           <Link to="/createNewmessage" className="header-link">
           <span>Create New Message</span>
@@ -54,10 +57,12 @@ function Header(props) {
           <Link to="/message" className="header-link">
             <span>Messages</span>
           </Link>
+
           <Link to="/myposts" className="header-link">
             <span>My Posts</span>
           </Link>
         </div>
+
         : null
       }
       

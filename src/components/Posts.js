@@ -8,30 +8,42 @@ import CreateNewPost from './CreateNewPost'
 import Fab from '@material-ui/core/Fab'
 import AddIcon from '@material-ui/icons/Add'
 import CreateNewMessage from './CreateNewMessage'
+import { Modal } from '@material-ui/core'
+import EditPost from './EditPost'
+import { useHistory } from 'react-router-dom'
+import Message from './Message'
 
 function Posts(props) {
-  const { postList, setPostList, isLoggedIn } = props
-  const { addNewPost } = props
+
+  const history = useHistory()
+  const { postList, setPostList, isLoggedIn, addNewPost } = props
+  const [open, setOpen] = useState(false)
+  const [editPost, setEditPost] = useState('')
   const [active, setActive] = useState(false)
-  const [message, setMessage] = useState(false)
+  const [wantsToReply, setReply] = useState('')
+  const [inputVal, setInputVal] = useState('')
+  const [isModifyPost, setIsModifyPost] = useState('')
 
   return (
     <div id="posts">
-      <Fab
-        style={{
-          position: 'sticky',
-          marginLeft: '1500px',
+      {isLoggedIn ? (
+        <Fab
+          onClick={() => setActive(true)}
+          style={{
+            position: 'absolute',
+            marginLeft: '1600px',
 
-          top: '0',
-          zIndex: '100',
-        }}
-        color="primary"
-        aria-label="add"
-      >
-        <AddIcon onClick={() => setActive(true)} />
-      </Fab>
+            top: '0',
+            zIndex: '100',
+          }}
+          aria-label="add"
+        >
+          <AddIcon onClick={() => setActive(true)} />
+        </Fab>
+      ) : (
+        ''
+      )}
       {active === true && <CreateNewPost addNewPost={addNewPost} />}
-
       {postList.map((post, index) => {
         return (
           <div
@@ -54,7 +66,28 @@ function Posts(props) {
               <h5>Delivery available: {post.willDeliver ? 'YES' : 'NO'}</h5>
               <h5>Posted by: {post.author.username}</h5>
             </div>
-            {message === true && <CreateNewMessage postId={post._id} />}
+
+            {wantsToReply === post._id ? (
+              <CreateNewMessage
+                postId={post._id}
+                wantsToReply={wantsToReply}
+                setReply={setReply}
+              />
+            ) : null}
+
+            {isModifyPost === post._id ? (
+              <EditPost
+                title={post.title}
+                description={post.description}
+                price={post.price}
+                location={post.location}
+                willDeliver={post.willDeliver}
+                postId={post._id}
+                setPostList={setPostList}
+              />
+            ) : (
+              ''
+            )}
 
             <div className="message">
               {post.isAuthor ? (
@@ -77,10 +110,7 @@ function Posts(props) {
                     Delete
                   </Button>
                   <Button
-                    onClick={() => {
-                      console.log('post is ', post)
-                      
-                    }}
+                    onClick={() => setIsModifyPost(post._id)}
                     variant="outlined"
                     color="secondary"
                     fullWidth
@@ -89,6 +119,7 @@ function Posts(props) {
                   </Button>
                 </Fragment>
               ) : (
+
                 isLoggedIn?
                   <Button
                       onClick={async () => {
@@ -114,6 +145,7 @@ function Posts(props) {
                     : null
                 
                   
+
               )}
               
             </div>
