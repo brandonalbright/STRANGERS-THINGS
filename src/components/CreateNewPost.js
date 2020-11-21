@@ -14,7 +14,7 @@ function CreateNewMessage(props) {
   const [isDirty, setIsDirty] = useState(false)
 
   return (
-    <div id="form" className="createNewMessage">
+    <div className="createNewMessage">
       <form
         onSubmit={async (e) => {
           event.preventDefault()
@@ -52,7 +52,7 @@ function CreateNewMessage(props) {
           setTitle('')
           setWillDeliver('')
           setLocation('')
-          document.getElementById('form').style.display = 'none'
+
           history.push('/posts')
         }}
       >

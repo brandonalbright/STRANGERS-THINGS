@@ -13,9 +13,9 @@ import EditPost from './EditPost'
 function Posts(props) {
   const { postList, setPostList, isLoggedIn, updatePost, addNewPost } = props
 
-  const [wantsToReply, setReply] = useState('')
+  const [wantsToReply, setReply] = useState(null)
 
-  const [isModifyPost, setIsModifyPost] = useState('')
+  const [isModifyPost, setIsModifyPost] = useState(null)
 
   return (
     <div id="posts">
@@ -43,7 +43,10 @@ function Posts(props) {
               <h5>Posted by: {post.author.username}</h5>
             </div>
             {wantsToReply === post._id ? (
-              <CreateNewMessage postId={post._id} />
+              <CreateNewMessage
+                postId={post._id}
+                closeReply={() => setReply(null)}
+              />
             ) : null}
             {isModifyPost === post._id ? (
               <EditPost
@@ -54,6 +57,7 @@ function Posts(props) {
                 willDeliver={post.willDeliver}
                 postId={post._id}
                 updatePost={updatePost}
+                closeEdit={() => setIsModifyPost(null)}
               />
             ) : null}
 

@@ -11,7 +11,7 @@ function EditPost(props) {
   const [location, setLocation] = useState(props.location || '')
   const [willDeliver, setWillDeliver] = useState(props.willDeliver || false)
   const history = useHistory()
-  const { setPostList, updatePost, postId } = props
+  const { setPostList, updatePost, postId, closeEdit } = props
 
   return (
     <div id="form" className="createNewMessage">
@@ -41,13 +41,13 @@ function EditPost(props) {
           setTitle('')
           setWillDeliver(false)
           setLocation('')
-          document.getElementById('form').style.display = 'none'
+          closeEdit()
           history.push('/posts')
         }}
       >
         <CancelIcon
           onClick={() => {
-            document.getElementById('form').style.display = 'none'
+            closeEdit()
             history.push('/posts')
           }}
         />
@@ -93,7 +93,6 @@ function EditPost(props) {
             setWillDeliver(!willDeliver)
           }}
           type="checkbox"
-        
         />
         <button>Update</button>
       </form>

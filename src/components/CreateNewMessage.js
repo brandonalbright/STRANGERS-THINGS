@@ -4,7 +4,7 @@ import { hitAPI } from '../api'
 import CancelIcon from '@material-ui/icons/Cancel'
 
 function CreateNewMessage(props) {
-  const { postId } = props
+  const { postId, closeReply } = props
 
   const [textValue, setTextValue] = useState('')
 
@@ -25,12 +25,12 @@ function CreateNewMessage(props) {
           )
 
           setTextValue('')
-          document.getElementById('message-form').style.display = 'none'
+          closeReply()
         }}
       >
         <CancelIcon
           onClick={() => {
-            document.getElementById('message-form').style.display = 'none'
+            closeReply()
           }}
         />
         <textarea
