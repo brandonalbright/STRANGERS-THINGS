@@ -12,7 +12,7 @@ function Message(props) {
   return filteredMyPosts().map((post, index) => {
     if (post.messages.length > 0) {
       return (
-        <div className="incoming-messages" key={index}>
+        <div id="message-close" className="incoming-messages" key={index}>
           <h4 className="message-title">Messages for Post: {post.title}</h4>
           {post.messages.map((message, index) => {
             return (
@@ -22,6 +22,13 @@ function Message(props) {
               </p>
             )
           })}
+          <button
+            onClick={() =>
+              (document.getElementById('message-close').style.display = 'none')
+            }
+          >
+            Cancel
+          </button>
         </div>
       )
     } else {

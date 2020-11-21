@@ -46,7 +46,7 @@ function Header(props) {
 
       <div className="headerNav">
         {isLoggedIn ? (
-          <Link to="/" className="header-link">
+          <Link to="/posts" className="header-link">
             <span
               onClick={() => {
                 clearToken()

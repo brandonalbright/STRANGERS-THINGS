@@ -8,7 +8,6 @@ import MyPosts from './MyPosts'
 import './Header.css'
 import { getToken, clearToken } from '../api/index'
 import { hitAPI, auth } from '../api/index'
-import Home from './Home'
 import CreateNewPost from './CreateNewPost'
 import CreateNewMessage from './CreateNewMessage'
 import EditPost from './EditPost'
@@ -97,8 +96,6 @@ function App() {
               isLoggedIn={isLoggedIn}
               setIsLoggedIn={setIsLoggedIn}
               clearToken={clearToken}
-              postList={postList}
-              setPostList={setPostList}
               searchTerm={searchTerm}
               setSearchTerm={setSearchTerm}
               isRecent={isRecent}
@@ -112,8 +109,6 @@ function App() {
               isLoggedIn={isLoggedIn}
               setIsLoggedIn={setIsLoggedIn}
               clearToken={clearToken}
-              postList={postList}
-              setPostList={setPostList}
               searchTerm={searchTerm}
               setSearchTerm={setSearchTerm}
               isRecent={isRecent}
@@ -126,8 +121,6 @@ function App() {
               isLoggedIn={isLoggedIn}
               setIsLoggedIn={setIsLoggedIn}
               clearToken={clearToken}
-              postList={postList}
-              setPostList={setPostList}
               searchTerm={searchTerm}
               setSearchTerm={setSearchTerm}
               isRecent={isRecent}
@@ -138,6 +131,7 @@ function App() {
               postList={filteredPosts()}
               isLoggedIn={isLoggedIn}
               setPostList={filteredPosts}
+              updatePost={updatePost}
             />
           </Route>
           <Route path="/createNewPost">
@@ -145,6 +139,10 @@ function App() {
               isLoggedIn={isLoggedIn}
               setIsLoggedIn={setIsLoggedIn}
               clearToken={clearToken}
+              searchTerm={searchTerm}
+              setSearchTerm={setSearchTerm}
+              isRecent={isRecent}
+              setIsRecent={setIsRecent}
             />
             <CreateNewPost addNewPost={addNewPost} />
           </Route>
@@ -153,8 +151,17 @@ function App() {
               isLoggedIn={isLoggedIn}
               setIsLoggedIn={setIsLoggedIn}
               clearToken={clearToken}
+              searchTerm={searchTerm}
+              setSearchTerm={setSearchTerm}
+              isRecent={isRecent}
+              setIsRecent={setIsRecent}
             />
-            <Home />
+            <Posts
+              postList={filteredPosts()}
+              setPostList={setPostList}
+              isLoggedIn={isLoggedIn}
+              updatePost={updatePost}
+            />
           </Route>
         </Switch>
       </div>

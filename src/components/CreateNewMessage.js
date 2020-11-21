@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import './CreateNewMessage.css'
 import { hitAPI } from '../api'
+import CancelIcon from '@material-ui/icons/Cancel'
 
 function CreateNewMessage(props) {
   const { postId } = props
@@ -8,9 +9,9 @@ function CreateNewMessage(props) {
   const [textValue, setTextValue] = useState('')
 
   return (
-    <div  className="new-message">
+    <div id="message-form" className="new-message">
       <form
-        onSubmit={async (event, post) => {
+        onSubmit={async (event) => {
           event.preventDefault()
           const objBody = {
             message: {
@@ -22,10 +23,16 @@ function CreateNewMessage(props) {
             `/posts/${postId}/messages`,
             objBody,
           )
+
           setTextValue('')
           document.getElementById('message-form').style.display = 'none'
         }}
       >
+        <CancelIcon
+          onClick={() => {
+            document.getElementById('message-form').style.display = 'none'
+          }}
+        />
         <textarea
           value={textValue}
           onChange={(event) => setTextValue(event.target.value)}
