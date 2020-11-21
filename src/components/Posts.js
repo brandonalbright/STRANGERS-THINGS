@@ -43,11 +43,7 @@ function Posts(props) {
               <h5>Posted by: {post.author.username}</h5>
             </div>
             {wantsToReply === post._id ? (
-              <CreateNewMessage
-                postId={post._id}
-                wantsToReply={wantsToReply}
-                setReply={setReply}
-              />
+              <CreateNewMessage postId={post._id} />
             ) : null}
             {isModifyPost === post._id ? (
               <EditPost

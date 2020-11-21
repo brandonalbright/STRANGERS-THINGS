@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import Posts from './Posts'
 
 function MyPosts(props) {
-  const { postList, setPostList } = props
+  const { postList, setPostList, updatePost } = props
 
   function filteredMyPosts() {
     const filteredMyPosts = postList.filter((post) => {
@@ -13,7 +13,11 @@ function MyPosts(props) {
 
   return (
     <>
-      <Posts postList={filteredMyPosts()} setPostList={filteredMyPosts()} />
+      <Posts
+        postList={filteredMyPosts()}
+        setPostList={setPostList}
+        updatePost={updatePost}
+      />
     </>
   )
 }

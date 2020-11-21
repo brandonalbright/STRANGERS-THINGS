@@ -5,10 +5,10 @@ import { useHistory } from 'react-router-dom'
 
 function CreateNewMessage(props) {
   const { addNewPost } = props
-  const [description, setDescription] = useState(props.description || '')
-  const [title, setTitle] = useState(props.title || '')
-  const [price, setPrice] = useState(props.price || '')
-  const [location, setLocation] = useState(props.location || '')
+  const [description, setDescription] = useState('')
+  const [title, setTitle] = useState('')
+  const [price, setPrice] = useState('')
+  const [location, setLocation] = useState('')
   const [willDeliver, setWillDeliver] = useState(false)
   const history = useHistory()
   const [isDirty, setIsDirty] = useState(false)

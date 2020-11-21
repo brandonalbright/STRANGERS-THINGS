@@ -11,8 +11,7 @@ function EditPost(props) {
   const [location, setLocation] = useState(props.location || '')
   const [willDeliver, setWillDeliver] = useState(props.willDeliver || false)
   const history = useHistory()
-  const { postId } = props
-  const { setPostList, updatePost } = props
+  const { setPostList, updatePost, postId } = props
 
   return (
     <div id="form" className="createNewMessage">
@@ -32,9 +31,6 @@ function EditPost(props) {
 
           try {
             const result = await hitAPI('PATCH', `/posts/${postId}`, postData)
-
-            console.log(result)
-
             updatePost(result.post)
           } catch (error) {
             console.error(error)
@@ -97,7 +93,7 @@ function EditPost(props) {
             setWillDeliver(!willDeliver)
           }}
           type="checkbox"
-          className="create-post-check"
+        
         />
         <button>Update</button>
       </form>

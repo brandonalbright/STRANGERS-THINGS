@@ -66,3 +66,21 @@
 	font-size: 15px;
 	font-weight: 800;
 }
+
+@media (max-width: 780px) {
+	.header {
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		flex-basis: 120px;
+		flex: 1;
+	}
+}
+
+@media (max-width: 600px) {
+	.header {
+		display: grid;
+		grid-template-columns: 1fr;
+		grid-gap: 10px;
+	}
+}

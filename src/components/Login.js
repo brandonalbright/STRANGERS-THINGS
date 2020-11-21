@@ -1,6 +1,5 @@
 import React, { useState, Fragment } from 'react'
 import loginUser from '../api/index'
-
 import { Link, useHistory } from 'react-router-dom'
 import { hitApi, auth } from '../api/index'
 import './Login.css'
@@ -10,9 +9,6 @@ import Header from './Header'
 function Login(props) {
   const { setIsLoggedIn } = props
   const history = useHistory()
-
-  console.log(props)
-
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [errorMessage, setErrorMessage] = useState(null)
@@ -34,7 +30,6 @@ function Login(props) {
         <form
           onSubmit={(event) => {
             event.preventDefault()
-            
           }}
         >
           <h5>Email</h5>
@@ -73,8 +68,6 @@ function Login(props) {
         <button
           className="login-createbutton"
           onClick={async (event) => {
-            console.log(123455)
-
             try {
               const result = await auth(username, password, true)
               setIsLoggedIn(true)
