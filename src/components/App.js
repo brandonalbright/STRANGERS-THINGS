@@ -10,7 +10,6 @@ import { getToken, clearToken } from '../api/index'
 import { hitAPI, auth } from '../api/index'
 import CreateNewPost from './CreateNewPost'
 import CreateNewMessage from './CreateNewMessage'
-import EditPost from './EditPost'
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(!!getToken())
@@ -162,6 +161,8 @@ function App() {
               isLoggedIn={isLoggedIn}
               updatePost={updatePost}
             />
+
+
           </Route>
         </Switch>
       </div>
